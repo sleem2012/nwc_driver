@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/localization/trans.dart';
 import '../../shared/theme/helper.dart';
 
 @immutable
@@ -32,6 +33,6 @@ class MainViewBloc extends Cubit<MainViewState> {
 
     KHelper.person,
   ];
-  List<String> label = ["الرئيسية",  "الملف الشخصي",];
+  List<String> label = [Tr.get.home,  Tr.get.profile,];
 
 }

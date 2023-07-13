@@ -8,6 +8,7 @@ import '../../../shared/theme/colors.dart';
 import '../../../shared/theme/helper.dart';
 import '../../../shared/theme/text_theme.dart';
 import '../../../shared/widgets/custom_button.dart';
+import '../../../shared/widgets/lang_toggle_btn.dart';
 import '../../../shared/widgets/nav.dart';
 import '../../../shared/widgets/text_field.dart';
 import '../../main_screen/main_screen.dart';
@@ -27,6 +28,7 @@ class LoginView extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+
             SizedBox(
               height: Get.height / 5,
             ),
@@ -43,6 +45,8 @@ class LoginView extends StatelessWidget {
                   padding: EdgeInsets.all(KHelper.hPadding),
                   child: Center(
                     child: Column(children: [
+                      SizedBox(width: Get.width*.3,child: const LangDropDown()),
+
                       20.h,
                       Image.asset(
                         Constant.appLogo,
@@ -107,9 +111,8 @@ class LoginView extends StatelessWidget {
                           // }
                         },
                       ),
-
-                      // 20.h,
                     ]),
+
                   ),
                 ),
               ),
