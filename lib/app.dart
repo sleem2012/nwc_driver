@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'shared/cache/locale_storage.dart';
+import 'shared/location_helper.dart';
+import 'views/auth/login/login_view.dart';
+import 'views/main_screen/main_screen.dart';
 import 'views/splash_screen/splash_screen.dart';
 import 'shared/api_middleware_bloc/api_client_bloc.dart';
 import 'shared/api_middleware_bloc/api_client_state.dart';
@@ -24,7 +28,11 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => Di.themeBloc..loadTheme()),
         BlocProvider(create: (context) => Di.apiClientBloc),
-
+        BlocProvider(
+          create: (context) => Di.getOrdersBloc..get_orders(loadMore: false),
+        ) ,  BlocProvider(
+          create: (context) => Di.getRejectReasons..get(),
+        )
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
@@ -43,7 +51,8 @@ class MyApp extends StatelessWidget {
               localizationsDelegates: Tr.delegates,
               supportedLocales: Tr.supportedLocales,
               locale: ThemeBloc.of(context).locale,
-              localeResolutionCallback: (Locale? locale, Iterable<Locale> iterable) {
+              localeResolutionCallback:
+                  (Locale? locale, Iterable<Locale> iterable) {
                 return ThemeBloc.of(context).locale;
               },
               theme: KThemeData.light,
@@ -53,7 +62,7 @@ class MyApp extends StatelessWidget {
                 builder: (context) {
                   return AnnotatedRegion<SystemUiOverlayStyle>(
                     value: KThemeData.of(context).overlayStyle,
-                    child:  const SplashScreen(),
+                    child: const SplashScreen(),
                   );
                 },
               ),
@@ -62,5 +71,35 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class Wrapper extends StatefulWidget {
+  const Wrapper({Key? key}) : super(key: key);
+
+  @override
+  State<Wrapper> createState() => _WrapperState();
+}
+
+class _WrapperState extends State<Wrapper> {
+  @override
+  initState() {
+    super.initState();
+    LocationHelper.determinePosition()
+        .then((value) => KStorage.i.setLocation(value));
+    WidgetsBinding.instance.addPostFrameCallback((_) => nav());
+  }
+
+  nav() {
+    if (KStorage.i.getToken != null) {
+      Get.offAll(() => const MainNavPages());
+    } else {
+      Get.offAll(() => const LoginView());
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox();
   }
 }

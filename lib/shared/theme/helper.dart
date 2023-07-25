@@ -3,7 +3,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import '../extensions.dart';
 
 import '../widgets/nav.dart';
 import '../localization/trans.dart';
@@ -154,52 +153,24 @@ abstract class KHelper {
     );
   }
 
-  static showSnackBar(String msg, {String? title, bool? isTop, Widget? icon, Color? backgroundColor, Color? barColor}) {
+  static showSnackBar(String msg, {bool? isTop}) {
     Get.closeAllSnackbars();
     Get.snackbar(
-      (title ?? '').capitalized,
-      msg.capitalizeFirst ?? msg,
-      snackPosition: isTop ?? true ? SnackPosition.TOP : SnackPosition.BOTTOM,
+      '',
+      '',
+      snackPosition: isTop ?? false ? SnackPosition.TOP : SnackPosition.BOTTOM,
       barBlur: 10.0,
-      //backgroundColor: Colors.black.withOpacity(.6),
+      backgroundColor: Colors.black.withOpacity(.6),
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      duration: const Duration(seconds: 6),
-      //padding: const EdgeInsets.only(bottom: 30, left: 15, right: 15, top: 8),
+      duration: const Duration(seconds: 3),
+      padding: const EdgeInsets.only(bottom: 30, left: 15, right: 15, top: 8),
       forwardAnimationCurve: Curves.decelerate,
       reverseAnimationCurve: Curves.decelerate,
       dismissDirection: DismissDirection.horizontal,
-      borderRadius: 8,
-      // icon: Row(
-      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //   children: [
-      //     DecoratedBox(
-      //       decoration: BoxDecoration(color: barColor, borderRadius: const BorderRadiusDirectional.horizontal(start: Radius.circular(8))),
-      //       child: const SizedBox(width: 10, height: 80),
-      //     ),
-      //     if (icon != null) icon,
-      //     const SizedBox(width: 10),
-      //   ],
-      // ),
-      backgroundColor: backgroundColor ?? KColors.of(Nav.navigator.currentContext!).reBackground,
-      //colorText: Colors.white,
-
-      icon: FittedBox(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            DecoratedBox(
-              decoration: BoxDecoration(color: barColor, borderRadius: const BorderRadiusDirectional.horizontal(start: Radius.circular(8))),
-              child: const SizedBox(width: 10, height: 90),
-            ),
-            const SizedBox(width: 8),
-            if (icon != null) icon,
-            const SizedBox(width: 8)
-          ],
-        ),
-      ),
+      colorText: Colors.white,
+      messageText: Text(msg, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontSize: 15)),
     );
   }
-
   static String apiDateFormatter(DateTime date) {
     return DateFormat('yyyy-MM-dd kk:mm').format(date);
   }

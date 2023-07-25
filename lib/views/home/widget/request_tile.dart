@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../data/model/order_model.dart';
+import '../../../logic/get_orders/get_orders_bloc.dart';
 import '../../../shared/extensions.dart';
 import '../../../shared/theme/colors.dart';
 import '../../../shared/theme/helper.dart';
@@ -9,12 +11,13 @@ import '../../../shared/widgets/nav.dart';
 import '../../request_details/request_details_view.dart';
 
 class RequestTile extends StatelessWidget {
-  const RequestTile({super.key});
-
+  const RequestTile({super.key, required this.order});
+final OrderList order;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        GetOrdersBloc.of(context).selectOrder(order);
         Nav.to(const RequestDetailsView());
       },
       child: Container(
@@ -29,8 +32,8 @@ class RequestTile extends StatelessWidget {
           margin: const EdgeInsets.all(8),
           child: Column(
             children: [
-              const IconText(
-                  icon: Icons.reset_tv_rounded, text: 'NO : 2124151545'),
+               IconText(
+                  icon: Icons.reset_tv_rounded, text: (order.orderNumber??'')),
               10.h,
               const Divider(),
               10.h,
@@ -39,13 +42,13 @@ class RequestTile extends StatelessWidget {
                 children: [
                   IconText(
                       icon: Icons.timelapse,
-                      text: "11/7/2023",
+                      text:order.requestTime?.substring(0,10)??'',
                       style: KTextStyle.of(context).body2),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 8.0),
+                   Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
                     child: CircleAvatar(
                       radius: 15,
-                      child: Text("8m", style: TextStyle(fontSize: 11)),
+                      child: Text('${GetOrdersBloc.of(context).get_distance(order: order)}m', style: const TextStyle(fontSize: 11)),
                     ),
                   ),
                 ],
@@ -56,13 +59,13 @@ class RequestTile extends StatelessWidget {
                 children: [
                   IconText(
                     icon: Icons.location_on_outlined,
-                    text: 'المنصوره شارع قناة السويس',
+                    text: order.customerAddress?.toString()??'',
                     style: KTextStyle.of(context).body2,
                   ),
                   IconButton(
                     onPressed: () async {
                       String url =
-                          "google.navigation:q=31.388537669971903,31.034472131501534";
+                          "google.navigation:q=${order.customerLocationLat},${order.customerLocationLng}";
                       await launchUrlString(url);
                     },
                     icon: Transform.rotate(
@@ -99,7 +102,7 @@ class IconText extends StatelessWidget {
         5.w,
         Text(
           text,
-          style: style ?? KTextStyle.of(context).smallTitle,
+          style: style ?? KTextStyle.of(context).subtitle,
         ),
       ],
     );

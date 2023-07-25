@@ -8,9 +8,7 @@ void main() async {
   await Di.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  // debugPrint('Token : ${KStorage.i.getToken}');
-  //KStorage.i.erase;
-  // debugPrint('FCMToken : ${KStorage.i.getFcmToken}');
+
   runApp(const RestartWidget(child: MyApp()));
 }
 

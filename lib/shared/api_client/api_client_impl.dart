@@ -32,6 +32,7 @@ class DioClientImpl implements ApiClientAbs {
   static BaseOptions options = BaseOptions(
     baseUrl: KEndPoints.baseUrl,
     contentType: 'application/json',
+
     connectTimeout: const Duration(seconds: 40),
     receiveTimeout: const Duration(seconds: 60),
     sendTimeout: const Duration(seconds: 60),

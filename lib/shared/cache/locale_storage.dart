@@ -1,5 +1,8 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
+
+import '../../data/model/user_model.dart';
 
 
 
@@ -13,6 +16,8 @@ class KStorageKeys {
   static const String userModel = 'userModel';
   static const String isSplashSeen = 'isSplashSeen';
   static const String settings = 'settings';
+  static const String location = 'location';
+
 
 
 }
@@ -50,5 +55,27 @@ class KStorage {
   setFcmToken(String? token) => _storage.write(KStorageKeys.fcmToken, token);
   String? get getFcmToken => _storage.read(KStorageKeys.fcmToken);
 
+  setUserInfo(UserModel? model) => _storage.write(KStorageKeys.userModel, model?.toJson() as Map<String, dynamic>);
 
+  get delUserInfo => _storage.remove(KStorageKeys.userModel);
+
+  UserModel? get getUserInfo {
+    if (_storage.read(KStorageKeys.userModel) != null) {
+      return UserModel.fromJson(_storage.read(KStorageKeys.userModel));
+    } else {
+      return null;
+    }
+  }
+
+  setLocation(Position? location) =>
+      _storage.write(KStorageKeys.location, location?.toJson());
+
+  Position? get getLocation {
+    // debugPrint(
+    //     '================= >>>> Location form cache  :${_storage.read(KStorageKeys.location)} ');
+    if (_storage.read(KStorageKeys.location) != null) {
+      return Position.fromMap(_storage.read(KStorageKeys.location));
+    }
+    return null;
+  }
 }

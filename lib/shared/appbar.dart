@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/theme/text_theme.dart';
-import '../views/auth/login/login_view.dart';
+import '../app.dart';
+import '../di.dart';
+import '../logic/logout/logout_bloc.dart';
+import '../logic/logout/logout_state.dart';
+import 'localization/trans.dart';
 import 'widgets/action_dialog.dart';
 import 'widgets/nav.dart';
 
@@ -14,7 +19,6 @@ class KAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<KAppBar> createState() => _KAppBarState();
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(50);
 }
 
@@ -45,22 +49,36 @@ class _KAppBarState extends State<KAppBar> {
 
         actions: [
           if (widget.isMainScreen)
-            IconButton(
-              onPressed: () {
-                ActionDialog(
-                  title: "هل تريد تسجيل الخروج ؟",
-                  approveAction: "نعم",
-                  cancelAction: "لا",
-                  onApproveClick: () {
-                    Nav.offAll(const LoginView());
-                  },
-                  onCancelClick: () {
-                    Nav.back();
-                  },
-                ).show<void>(context);
-
-              },
-              icon: const Icon(Icons.login_outlined),
+            BlocProvider(
+              create: (context) => Di.logOut,
+              child: BlocConsumer<LogoutBloc, LogoutState>(
+                listener: (context, state) {
+                  state.whenOrNull(
+                    success: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => const Wrapper()));
+                    },
+                  );
+                },
+                builder: (context, state) {
+                  return IconButton(
+                    onPressed: () {
+                      ActionDialog(
+                        title:Tr.get.log_out,
+                        approveAction: Tr.get.yes_message,
+                        cancelAction: Tr.get.no_message,
+                        onApproveClick: () {
+                          LogoutBloc.of(context).logout();
+                        },
+                        onCancelClick: () {
+                          Nav.back();
+                        },
+                      ).show<void>(context);
+                    },
+                    icon: const Icon(Icons.login_outlined),
+                  );
+                },
+              ),
             ),
         ],
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../app.dart';
 import '../../shared/widgets/nav.dart';
-import '../auth/login/login_view.dart';
 import 'widget/splash_body.dart';
 
 
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen>
 @override
   void initState() {
    Future.delayed(const Duration(seconds: 3),() {
-     Nav.offAll(const LoginView());
+     Nav.offAll(const Wrapper());
    },);
     super.initState();
   }

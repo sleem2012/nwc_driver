@@ -1,5 +1,7 @@
 import 'package:geolocator/geolocator.dart' ;
 
+import 'cache/locale_storage.dart';
+
 class LocationHelper {
 
  /// Determine the current position of the device.
@@ -44,4 +46,16 @@ class LocationHelper {
    // continue accessing the position of the device.
    return await Geolocator.getCurrentPosition();
  }
+
+ static double getDistance({required String lat2, required String lon2}) {
+   double distance = Geolocator.distanceBetween(
+     double.parse(KStorage.i.getLocation?.latitude.toString() ?? '0'),
+     double.parse(KStorage.i.getLocation?.longitude.toString() ?? '0'),
+     double.parse(lat2),
+      double.parse(lon2),
+   ) /
+       1000;
+   return distance;
+ }
+
 }

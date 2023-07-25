@@ -4,14 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'data/repository/auth/auth_repo.dart';
+import 'data/repository/order/order_repo.dart';
+import 'logic/get_orders/get_orders_bloc.dart';
+import 'logic/get_reject_reasons/get_reject_reasons_bloc.dart';
+import 'logic/login/login_bloc.dart';
+import 'logic/logout/logout_bloc.dart';
+import 'logic/update_order_bloc/update_order_bloc.dart';
 import 'shared/api_client/api_client_impl.dart';
 import 'shared/api_middleware_bloc/api_client_bloc.dart';
 import 'shared/observer.dart';
 
 import 'logic/theme/theme_cubit.dart';
 import 'main.dart';
-
-
 
 abstract class Di {
   static final GetIt _i = GetIt.instance;
@@ -32,17 +37,23 @@ abstract class Di {
   }
 
   static _reg() {
+    ///Repos
 
     _i.registerLazySingleton(() => DioClientImpl(apiClientBloc: _i()));
     _i.registerLazySingleton(() => Connectivity());
     _i.registerLazySingleton(() => ThemeBloc());
     _i.registerLazySingleton(() => ApiClientBloc());
     _i.registerLazySingleton(() => ImagePicker());
+    _i.registerLazySingleton(() => AuthRepoImpl());
+    _i.registerLazySingleton(() => OrderRepoImp());
 
+    ///bloc
 
-
-    ///Repos
-
+    _i.registerFactory(() => LoginBloc(authRepoImpl: _i()));
+    _i.registerFactory(() => LogoutBloc(authRepoImpl: _i()));
+    _i.registerFactory(() => GetOrdersBloc(getOrdersRepoImp: _i()));
+    _i.registerFactory(() => GetRejectReasonsBloc(getRejectReasonsRepoImp: _i()));
+    _i.registerFactory(() => UpdateOrderBloc(updateOrderBlocRepoImp: _i()));
   }
 
   static _unReg() async {
@@ -53,6 +64,12 @@ abstract class Di {
     await _i.unregister<ApiClientBloc>();
 
     await _i.unregister<ImagePicker>();
+    await _i.unregister<AuthRepoImpl>();
+    await _i.unregister<LoginBloc>();
+    await _i.unregister<LogoutBloc>();
+    await _i.unregister<GetOrdersBloc>();
+    await _i.unregister<OrderRepoImp>();
+    await _i.unregister<UpdateOrderBloc>();
   }
 
   // getters
@@ -60,13 +77,18 @@ abstract class Di {
 
   static Connectivity get connectivity => _i.get<Connectivity>();
 
-
   static ThemeBloc get themeBloc => _i.get<ThemeBloc>();
 
   static ApiClientBloc get apiClientBloc => _i.get<ApiClientBloc>();
 
-
   static ImagePicker get imagePicker => _i.get<ImagePicker>();
 
+  static LoginBloc get loginBloc => _i.get<LoginBloc>();
 
+  static LogoutBloc get logOut => _i.get<LogoutBloc>();
+
+    static GetOrdersBloc get getOrdersBloc => _i.get<GetOrdersBloc>();
+    static GetRejectReasonsBloc get getRejectReasons=> _i.get<GetRejectReasonsBloc>();
+
+    static UpdateOrderBloc get updateOrderBloc => _i.get<UpdateOrderBloc>();
 }
