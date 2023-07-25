@@ -41,7 +41,11 @@ abstract class ApiClientHelper {
 
   static Either<KFailure, dynamic> statusCodeChecker(Response<dynamic>? response) {
     if (response?.statusCode == 200) {
-      shoToastMsg(response);
+
+      ///TODO: Check it
+      // shoToastMsg(response);
+      KHelper.showSnackBar(response?.data['message']);
+
       return right(response?.data);
     } else {
       final fail = statusCodeToFailureMap(response) ?? const KFailure.someThingWrongPleaseTryAgain();

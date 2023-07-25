@@ -14,7 +14,6 @@ class KAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<KAppBar> createState() => _KAppBarState();
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(50);
 }
 

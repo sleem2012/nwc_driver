@@ -12,9 +12,11 @@ abstract class ConnectivityCheck {
     } else {
       return true;
     }
+
   }
 
   static Stream<ConnectivityResult> get connectionStream {
     return Di.connectivity.onConnectivityChanged;
+
   }
 }
