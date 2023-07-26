@@ -3,7 +3,7 @@ import '../../shared/error/failures.dart';
 part 'update_order_state.freezed.dart';
 
 @freezed
-abstract class UpdateOrderState with _$UpdateOrderBlocState {
+abstract class UpdateOrderState with _$UpdateOrderState {
   const factory UpdateOrderState.initial() = UpdateOrderBlocStateInitial;
   const factory UpdateOrderState.loading() = UpdateOrderBlocStateLoading;
   const factory UpdateOrderState.success() = UpdateOrderBlocStateSuccess;

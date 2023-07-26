@@ -34,10 +34,14 @@ class RequestDetailsView extends StatelessWidget {
         automaticallyImplyLeading: true,
         backgroundColor: Colors.transparent,
       ),
-      backgroundColor: KColors.of(context).accentColor,
+      backgroundColor: KColors
+          .of(context)
+          .accentColor,
       body: BlocBuilder<GetOrdersBloc, GetOrdersState>(
         builder: (context, state) {
-          final order = GetOrdersBloc.of(context).selectedOrder;
+          final order = GetOrdersBloc
+              .of(context)
+              .selectedOrder;
           return Column(
             children: [
               Padding(
@@ -52,7 +56,9 @@ class RequestDetailsView extends StatelessWidget {
                         8.w,
                         Text(
                           order?.customerName ?? '',
-                          style: KTextStyle.of(context).btnTitle,
+                          style: KTextStyle
+                              .of(context)
+                              .btnTitle,
                         ),
                       ],
                     ),
@@ -82,33 +88,39 @@ class RequestDetailsView extends StatelessWidget {
                         create: (context) => Di.updateOrderBloc,
                         child: BlocConsumer<UpdateOrderBloc, UpdateOrderState>(
                           listener: (context, state) {
-
-
+                            state.whenOrNull(success: () {
+                              KHelper.showSnackBar(Tr.get.success);
+                            },);
                           },
                           builder: (context, state) {
-                            final update=UpdateOrderBloc.of(context);
+                            final update = UpdateOrderBloc.of(context);
                             return KLoadingOverlay(
                               isLoading: state is UpdateOrderBlocStateLoading,
                               child: Column(
                                 children: [
                                   Container(
-                                    decoration: KHelper.of(context)
+                                    decoration: KHelper
+                                        .of(context)
                                         .elevatedBox
-                                        .copyWith(color: const Color(0xffCFE9FF)),
+                                        .copyWith(
+                                        color: const Color(0xffCFE9FF)),
                                     padding: const EdgeInsets.all(8),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           Tr.get.online,
-                                          style: KTextStyle.of(context)
+                                          style: KTextStyle
+                                              .of(context)
                                               .subtitle
                                               .copyWith(color: Colors.green),
                                         ),
                                         Text(
                                           order?.orderNumber ?? '',
-                                          style: KTextStyle.of(context).primary,
+                                          style: KTextStyle
+                                              .of(context)
+                                              .primary,
                                         ),
                                       ],
                                     ),
@@ -117,27 +129,29 @@ class RequestDetailsView extends StatelessWidget {
                                   KeyValueText(
                                       keyText: "وقت الطلب",
                                       value:
-                                          order?.requestTime?.substring(0, 10) ??
-                                              ''),
+                                      order?.requestTime?.substring(0, 10) ??
+                                          ''),
                                   13.h,
                                   KeyValueText(
                                       keyText: "حجم الصهريج",
                                       value:
-                                          "${order?.orderQuantity?.toString()}m3" ??
-                                              ''),
+                                      "${order?.orderQuantity?.toString()}m3" ??
+                                          ''),
                                   13.h,
                                   KeyValueText(
                                       keyText: "الاولوية",
                                       value: order?.priorityName ?? ''),
                                   13.h,
                                   Divider(
-                                    color: KColors.of(context).accentColor,
+                                    color: KColors
+                                        .of(context)
+                                        .accentColor,
                                   ),
                                   13.h,
                                   KeyValueText(
                                       keyText: "تكلفة الصهريج",
                                       value: (order?.costBeforVAT?.toString() ??
-                                              '') +
+                                          '') +
                                           Tr.get.sar),
                                   13.h,
                                   KeyValueText(
@@ -151,17 +165,20 @@ class RequestDetailsView extends StatelessWidget {
                                   KeyValueText(
                                       keyText: "إجمالي التكلفة",
                                       value:
-                                          (order?.costAfterVAT.toString() ?? '') +
-                                              Tr.get.sar),
+                                      (order?.costAfterVAT.toString() ?? '') +
+                                          Tr.get.sar),
                                   13.h,
                                   Divider(
-                                    color: KColors.of(context).accentColor,
+                                    color: KColors
+                                        .of(context)
+                                        .accentColor,
                                   ),
                                   13.h,
                                   KeyValueText(
                                       keyText: "حالة الدفع",
                                       value: order?.paymentStatusEn ?? '',
-                                      valueStyle: KTextStyle.of(context)
+                                      valueStyle: KTextStyle
+                                          .of(context)
                                           .title
                                           .copyWith(color: Colors.green)),
                                   45.h,
@@ -173,8 +190,8 @@ class RequestDetailsView extends StatelessWidget {
                                         approveAction: "نعم",
                                         cancelAction: "لا",
                                         onApproveClick: () {
-
-                                          update.setValues(order: order, statusId: 7);
+                                          update.setValues(
+                                              order: order, statusId: 7);
                                           update.update();
                                           Nav.back();
                                         },
@@ -185,7 +202,9 @@ class RequestDetailsView extends StatelessWidget {
                                     },
                                     iconPath: "assets/images/delivery.png",
                                     isFlat: true,
-                                    kFillColor: KColors.of(context).accentColor,
+                                    kFillColor: KColors
+                                        .of(context)
+                                        .accentColor,
                                   ),
                                   13.h,
                                   KButton(
@@ -225,33 +244,36 @@ class RequestDetailsView extends StatelessWidget {
                                                 GetRejectReasonsState>(
                                               builder: (context, state) {
                                                 final reject =
-                                                    GetRejectReasonsBloc.of(
-                                                            context)
+                                                    GetRejectReasonsBloc
+                                                        .of(
+                                                        context)
                                                         .model;
                                                 return KRequestOverlay(
                                                   onTryAgain: () =>
-                                                      GetRejectReasonsBloc.of(
-                                                              context)
-                                                          .get,
+                                                  GetRejectReasonsBloc
+                                                      .of(
+                                                      context)
+                                                      .get,
                                                   loadingWidget: ShimmerBox(
                                                     width: Get.width,
                                                   ),
                                                   isLoading: state
-                                                      is GetRejectReasonsStateLoading,
+                                                  is GetRejectReasonsStateLoading,
                                                   child: KDropdownBtn<
-                                                          RejectValue>(
+                                                      RejectValue>(
                                                       title: Tr.get.reason,
                                                       onChanged: (p0) {},
                                                       items: reject?.value
-                                                              ?.map((e) => KHelper
-                                                                      .of(context)
-                                                                  .itemView<
-                                                                          RejectValue>(
-                                                                      itemText:
-                                                                          e.name ??
-                                                                              '',
-                                                                      value: e))
-                                                              .toList() ??
+                                                          ?.map((e) =>
+                                                          KHelper
+                                                              .of(context)
+                                                              .itemView<
+                                                              RejectValue>(
+                                                              itemText:
+                                                              e.name ??
+                                                                  '',
+                                                              value: e))
+                                                          .toList() ??
                                                           []),
                                                 );
                                               },

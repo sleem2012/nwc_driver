@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import '../../data/model/order_model.dart';
 import '../../data/repository/order/order_repo.dart';
 import '../../shared/cache/locale_storage.dart';
@@ -48,13 +49,14 @@ class UpdateOrderBloc extends Cubit<UpdateOrderState> {
     String? statusComment,
     String? confirmationCode,
   }) {
+    debugPrint(DateTime.now().toString());
     values = {
       "WorkOrderID": order?.workOrderID,
       "OrderNumber": order?.orderNumber,
       "StatusID": statusId,
       if (statusReasonID != null) "StatusReasonID": statusReasonID,
       if (statusComment != null) "StatusComment": statusComment,
-      "StatusTime": DateTime.now(),
+      "StatusTime": DateFormat("yyyy-MM-dd'T'HH:mm:ss").format(DateTime.now()),
       if (confirmationCode != null) "ConfirmationCode": confirmationCode,
       "VehicleLatitude": KStorage.i.getLocation?.latitude,
       "VehicleLongitude": KStorage.i.getLocation?.longitude
