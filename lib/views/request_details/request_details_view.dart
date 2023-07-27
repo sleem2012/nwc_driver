@@ -30,6 +30,8 @@ class RequestDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> deliverdForm = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -67,7 +69,7 @@ class RequestDetailsView extends StatelessWidget {
                             child: Image.asset("assets/images/phone-call.png")),
                         9.w,
                         InkWell(
-                            onTap: ()async {
+                            onTap: () async {
                               String url =
                                   "google.navigation:q=${order?.customerLocationLat},${order?.customerLocationLng}";
                               await launchUrlString(url);
@@ -97,7 +99,8 @@ class RequestDetailsView extends StatelessWidget {
                             state.whenOrNull(
                               success: () {
                                 KHelper.showSnackBar(Tr.get.success);
-                                GetOrdersBloc.of(context).get_orders(loadMore: false);
+                                GetOrdersBloc.of(context)
+                                    .get_orders(loadMore: false);
                               },
                             );
                           },
@@ -118,7 +121,7 @@ class RequestDetailsView extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          Tr.get.online,
+                                          order?.lastStatusName??'',
                                           style: KTextStyle.of(context)
                                               .subtitle
                                               .copyWith(color: Colors.green),
@@ -143,7 +146,7 @@ class RequestDetailsView extends StatelessWidget {
                                           "${order?.orderQuantity?.toString()}m3"),
                                   13.h,
                                   KeyValueText(
-                                      keyText:Tr.get.priority ,
+                                      keyText: Tr.get.priority,
                                       value: order?.priorityName ?? ''),
                                   13.h,
                                   Divider(
@@ -151,7 +154,7 @@ class RequestDetailsView extends StatelessWidget {
                                   ),
                                   13.h,
                                   KeyValueText(
-                                      keyText:Tr.get.cosetBvat,
+                                      keyText: Tr.get.cosetBvat,
                                       value: (order?.costBeforVAT?.toString() ??
                                               '') +
                                           Tr.get.sar),
@@ -161,7 +164,7 @@ class RequestDetailsView extends StatelessWidget {
                                       value: (order?.vAT?.toString() ?? '') +
                                           Tr.get.sar),
                                   13.h,
-                                   KeyValueText(
+                                  KeyValueText(
                                       keyText: Tr.get.another_vat, value: "0"),
                                   30.h,
                                   KeyValueText(
@@ -187,7 +190,7 @@ class RequestDetailsView extends StatelessWidget {
                                       ActionDialog(
                                         title: Tr.get.arrived_to_client,
                                         approveAction: Tr.get.yes_message,
-                                        cancelAction:Tr.get.no_message,
+                                        cancelAction: Tr.get.no_message,
                                         onApproveClick: () {
                                           update.setValues(
                                               order: order, statusId: 7);
@@ -209,27 +212,40 @@ class RequestDetailsView extends StatelessWidget {
                                     onPressed: () {
                                       KHelper.showCustomBottomSheet(Padding(
                                         padding: const EdgeInsets.all(15.0),
-                                        child: Column(
-                                          children: [
-                                            KTextFormField(
-                                              hintText: Tr.get.confrim_code,
-                                              controller:
-                                                  update.confrimCodeController,
-                                            ),
-                                            20.h,
-                                            KButton(
-                                              title: Tr.get.send_code,
-                                              onPressed: () {
-                                                update.setValues(
-                                                  order: order,
-                                                  statusId: 4,
-                                                );
-                                                update.update();
-                                                Nav.back();
-                                              },
-                                              width: Get.width,
-                                            )
-                                          ],
+                                        child: Form(
+                                          key: deliverdForm,
+                                          child: Column(
+                                            children: [
+                                              KTextFormField(
+                                                hintText: Tr.get.confrim_code,
+                                                controller: update
+                                                    .confrimCodeController,
+                                                validator: (p0) {
+                                                  if (p0!.isEmpty) {
+                                                    return Tr
+                                                        .get.field_required;
+                                                  }
+                                                  return null;
+                                                },
+                                              ),
+                                              20.h,
+                                              KButton(
+                                                title: Tr.get.send_code,
+                                                onPressed: () {
+                                                  if (deliverdForm.currentState!
+                                                      .validate()) {
+                                                    update.setValues(
+                                                      order: order,
+                                                      statusId: 4,
+                                                    );
+                                                    update.update();
+                                                    Nav.back();
+                                                  }
+                                                },
+                                                width: Get.width,
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ));
                                     },

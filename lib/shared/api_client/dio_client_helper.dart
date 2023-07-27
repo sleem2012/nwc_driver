@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../error/error_422_model.dart';
 import '../error/failures.dart';
+import '../localization/trans.dart';
 import '../theme/helper.dart';
 import 'connection_ckecker.dart';
 
@@ -45,7 +46,7 @@ abstract class ApiClientHelper {
       if (isError) {
         KHelper.showSnackBar(
 
-          response?.data["ErrorDescription"] ?? "",
+          Tr.get2(key: response?.data["ErrorDescription"].toString() ?? '', value: []),
           isTop: true,
           // title: Tr.get2(key: response?.data["status"].toString() ?? '', value: []),
 
@@ -59,19 +60,19 @@ abstract class ApiClientHelper {
     }
   }
 
-  static void shoToastMsg(Response<dynamic>? response) {
-    final isError = response?.data["IsErrorState"] == true;
-    if (isError) {
-      KHelper.showSnackBar(
-
-        response?.data["ErrorDescription"] ?? "",
-        isTop: true,
-        // title: Tr.get2(key: response?.data["status"].toString() ?? '', value: []),
-
-      );
-
-    }
-  }
+  // static void shoToastMsg(Response<dynamic>? response) {
+  //   final isError = response?.data["IsErrorState"] == true;
+  //   if (isError) {
+  //     KHelper.showSnackBar(
+  //
+  //       response?.data["ErrorDescription"] ?? "",
+  //       isTop: true,
+  //       // title: Tr.get2(key: response?.data["status"].toString() ?? '', value: []),
+  //
+  //     );
+  //
+  //   }
+  // }
 
   static KFailure? statusCodeToFailureMap(Response<dynamic>? response) {
     final method = response?.requestOptions.method;

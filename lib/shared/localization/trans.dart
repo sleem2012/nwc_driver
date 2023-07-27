@@ -40,7 +40,8 @@ class Tr {
       "office": "office",
       "high_school": "high school",
       "elementary_school": "elementary school",
-      "post_secondary_certificate_or_diploma": "post secondary certificate or diploma",
+      "post_secondary_certificate_or_diploma":
+          "post secondary certificate or diploma",
       "trade_or_vocational_school": "trade or vocational school",
       "bachelor_Degree": "bachelor Degree",
       "professional_or_doctorate": "professional or doctorate",
@@ -58,6 +59,19 @@ class Tr {
       "sar": "SAR",
       "status": "SAR",
       "error": "error",
+      "InvalidUsername": "Invalid Username",
+      "InvalidPassword": "Invalid Password",
+      "UnExpectedError": "UnExpected Error",
+      "NotValidToOrder": "Not Valid To Order",
+      "LockedOut": "Locked Out",
+      "INTERNAL_ERROR": "INTERNAL ERROR",
+      "Forbidden": " Forbidden",
+      "InvalidUserOrPass": "Invalid User Or Pass",
+      "usernotfound": "User Not Found",
+      "InvalidOldPass": "Invalid Old Pass",
+      "InvalidNewPassword": "Invalid New Password",
+      "New status in not accepted":"New status in not accepted",
+      "Error In Confirmation Code": "Error In Confirmation Code"
     },
     'ar': {
       "per": "لمدة {0} سنة",
@@ -103,14 +117,31 @@ class Tr {
       "thursday": "الخميس",
       "friday": "الجمعة",
       "sar": "ريال سعودي",
+      "InvalidUsername": "الإسم خطأ",
+      "InvalidPassword": "كلمة مرور غير صحيحه",
+      "UnExpectedError": "خطأ غير متوقع",
+      "NotValidToOrder": "غير صالح للطلب",
+      "LockedOut": "محظور",
+      "INTERNAL_ERROR": "خطأ داخلي",
+      "Forbidden": "ممنوع",
+      "InvalidUserOrPass": "مستخدم غير صالح أو كلمة مرور خاطئة",
+      "usernotfound": "المستخدم غير موجود",
+      "InvalidOldPass": "كلمة مرور قديمة غير صالحة",
+      "InvalidNewPassword": "كلمة مرور جديدة غير صالحة",
+      "New status in not accepted":"الحالة الجديدة غير مقبولة",
+      "Error In Confirmation Code": "كود التأكيد خطأ"
+
+
     }
   };
+
   //failed
   static get2({required String key, required List<String> value}) {
     RegExp reg_x = RegExp(r'{\w+}');
     String pattern = _local[get.localeName]![key].toString();
     int i = 0;
-    for (var match in reg_x.allMatches(_local[get.localeName]![key].toString())) {
+    for (var match
+        in reg_x.allMatches(_local[get.localeName]![key].toString())) {
       if (value.length > i) {
         pattern = pattern.replaceFirst(match[0].toString(), value[i]);
       }
@@ -125,7 +156,8 @@ class Tr {
 
   static bool get isAr => get.localeName == 'ar';
 
-  static List<LocalizationsDelegate> delegates = <LocalizationsDelegate<dynamic>>[
+  static List<LocalizationsDelegate> delegates =
+      <LocalizationsDelegate<dynamic>>[
     AppLocalizations.delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
