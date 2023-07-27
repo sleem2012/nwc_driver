@@ -41,23 +41,25 @@ class UpdateOrderBloc extends Cubit<UpdateOrderState> {
   }
 
   Map<String, dynamic> values = {};
+  final TextEditingController confrimCodeController = TextEditingController();
+  final TextEditingController commentController = TextEditingController();
+  int? reasonId;
 
   Map<String, dynamic> setValues({
     required OrderList? order,
     required int statusId,
-    int? statusReasonID,
-    String? statusComment,
-    String? confirmationCode,
   }) {
     debugPrint(DateTime.now().toString());
     values = {
       "WorkOrderID": order?.workOrderID,
       "OrderNumber": order?.orderNumber,
       "StatusID": statusId,
-      if (statusReasonID != null) "StatusReasonID": statusReasonID,
-      if (statusComment != null) "StatusComment": statusComment,
+      if (reasonId != null) "StatusReasonID": reasonId,
+      if (commentController.text.isNotEmpty)
+        "StatusComment": commentController.text,
       "StatusTime": DateFormat("yyyy-MM-dd'T'HH:mm:ss").format(DateTime.now()),
-      if (confirmationCode != null) "ConfirmationCode": confirmationCode,
+      if (confrimCodeController.text.isNotEmpty)
+        "ConfirmationCode": confrimCodeController.text,
       "VehicleLatitude": KStorage.i.getLocation?.latitude,
       "VehicleLongitude": KStorage.i.getLocation?.longitude
     };

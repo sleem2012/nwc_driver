@@ -8,8 +8,19 @@ import '../../shared/widgets/loading/loading_overlay.dart';
 import '../../shared/widgets/shimmer_box.dart';
 import 'widget/request_tile.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    GetOrdersBloc.of(context).get_orders(loadMore: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +31,6 @@ class HomeScreen extends StatelessWidget {
           isLoading: state is GetOrdersStateLoading,
           loadingWidget: const ShimmerList(),
           child: LoadMoreWrapper(
-
             onLoadMore: () async {
               GetOrdersBloc.of(context).get_orders(loadMore: true);
             },
@@ -28,9 +38,11 @@ class HomeScreen extends StatelessWidget {
               GetOrdersBloc.of(context).get_orders(loadMore: false);
             },
             itemBuilder: (context, index) {
-              return  RequestTile(order: order?.result?[index]??OrderList(),);
+              return RequestTile(
+                order: order?.result?[index] ?? OrderList(),
+              );
             },
-            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 80),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),
             itemCount: order?.result?.length ?? 0,
             isLoadingMore:
                 state.maybeWhen(orElse: () => false, loadMore: () => true),

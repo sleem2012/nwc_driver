@@ -699,6 +699,8 @@
   "criminal_certificate": "Criminal certificate",
   "car_img": "Car Photo",
     "distance": "Distance",
+  "comment": "comment",
+
   "meter":"Meter"
 
 }

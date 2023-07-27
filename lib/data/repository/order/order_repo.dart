@@ -31,7 +31,7 @@ class OrderRepoImp implements OrderRepoAbs {
         // "SearchKeyword": "<string>"
       },
 
-      "StatusIDs": [4, 5, 6, 7],
+      "StatusIDs": [ 5, 6, 7],
 
 //   "excelFlage": false
     });

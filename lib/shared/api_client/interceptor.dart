@@ -93,7 +93,7 @@ class PrettyDioLogger extends Interceptor {
 
   PrettyDioLogger({
     this.request = true,
-    this.requestHeader = false,
+    this.requestHeader = true,
     this.requestBody = true,
     this.responseHeader = false,
     this.responseBody = true,

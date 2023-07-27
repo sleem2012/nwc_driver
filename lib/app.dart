@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'shared/cache/locale_storage.dart';
 import 'shared/location_helper.dart';
+import 'shared/widgets/no_conniction_view.dart';
 import 'views/auth/login/login_view.dart';
 import 'views/main_screen/main_screen.dart';
 import 'views/splash_screen/splash_screen.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => Di.themeBloc..loadTheme()),
         BlocProvider(create: (context) => Di.apiClientBloc),
         BlocProvider(
-          create: (context) => Di.getOrdersBloc..get_orders(loadMore: false),
+          create: (context) => Di.getOrdersBloc,
         ) ,  BlocProvider(
           create: (context) => Di.getRejectReasons..get(),
         )
@@ -41,6 +42,19 @@ class MyApp extends StatelessWidget {
               state.whenOrNull(
                 error: (failure) {
                   KHelper.showSnackBar(KFailure.toError(failure));
+                  failure.whenOrNull(
+
+                    offline: (options) {
+                      Get.dialog(const KOfflineView(), barrierColor: Colors.transparent, barrierDismissible: false);
+                    },
+                    error401: () {
+                      if (KStorage.i.getToken != null) {
+                        KStorage.i.delToken;
+                        KStorage.i.delUserInfo;
+                        Get.offAll(() => const LoginView());
+                      }
+                    },
+                  );
                 },
               );
             },

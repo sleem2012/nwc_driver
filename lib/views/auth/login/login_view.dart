@@ -33,7 +33,7 @@ class LoginView extends StatelessWidget {
           listener: (context, state) {
             state.whenOrNull(
               success: (userModel) async {
-                // await Di.reset(context);
+                 await Di.reset(context);
                 Nav.offAll(const MainNavPages());
               },
             );
