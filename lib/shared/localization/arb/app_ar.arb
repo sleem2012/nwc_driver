@@ -226,7 +226,9 @@
   "order_iD": "رقم الطلب",
   "not_available": "غير متاح",
   "not_selected": "مرفوض",
-  "delivered": "تم التوصيل",
+  "delivered": "تم التسليم",
+  "not_delivered": "لم يتم التسليم",
+  "confrim_code": "كود التأكيد",
   "rate_review": "التقييم",
   "how_would_you_rate_this_product": "ما هو تقييمك للمنتج؟",
   "shopping": "التسوق",
@@ -702,6 +704,13 @@
   "criminal_certificate": "الشهادة الجنائية",
   "car_img": "صوره المركبة",
   "distance": "المسافة",
-  "meter":"متر"
-
+  "request_time": "وقت الطلب",
+  "order_qty": "حجم الصهريج",
+  "priority": "الأولويه",
+  "cosetBvat": "تكلفة الصهريج",
+  "vat": "ضريبة القيمه المضافه",
+  "another_vat":"رسوم إضافية",
+  "cosetAvat":"إجمالي التكلفة",
+  "payment_status": "حالة الدفع",
+  "meter": "متر"
 }

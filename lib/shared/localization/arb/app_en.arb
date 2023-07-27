@@ -698,9 +698,20 @@
   "drug_analysis": "Drug analysis certificate",
   "criminal_certificate": "Criminal certificate",
   "car_img": "Car Photo",
-    "distance": "Distance",
+  "distance": "Distance",
   "comment": "comment",
+  "request_time": "Request time",
+  "confrim_code": "Confirmation Code",
 
-  "meter":"Meter"
+  "order_qty": "Order quantity",
+  "priority": "priority",
+  "cosetBvat": "Cost Before vat",
+  "not_delivered": "Not Delivered",
 
+  "vat": "Vat",
+  "another_vat": "Extra Charge",
+  "cosetAvat":"Total Cost",
+  "payment_status": "Payment Status",
+
+  "meter": "Meter"
 }

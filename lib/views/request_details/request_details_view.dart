@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../data/model/reject_reasons_model.dart';
 import '../../di.dart';
@@ -58,9 +59,20 @@ class RequestDetailsView extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Image.asset("assets/images/phone-call.png"),
+                        InkWell(
+                            onTap: () async {
+                              await launchUrlString(
+                                  "tel:${order?.customerMobile}");
+                            },
+                            child: Image.asset("assets/images/phone-call.png")),
                         9.w,
-                        Image.asset("assets/images/gps.png"),
+                        InkWell(
+                            onTap: ()async {
+                              String url =
+                                  "google.navigation:q=${order?.customerLocationLat},${order?.customerLocationLng}";
+                              await launchUrlString(url);
+                            },
+                            child: Image.asset("assets/images/gps.png")),
                       ],
                     ),
                   ],
@@ -85,6 +97,7 @@ class RequestDetailsView extends StatelessWidget {
                             state.whenOrNull(
                               success: () {
                                 KHelper.showSnackBar(Tr.get.success);
+                                GetOrdersBloc.of(context).get_orders(loadMore: false);
                               },
                             );
                           },
@@ -119,18 +132,18 @@ class RequestDetailsView extends StatelessWidget {
                                   ),
                                   50.h,
                                   KeyValueText(
-                                      keyText: "وقت الطلب",
+                                      keyText: Tr.get.request_time,
                                       value: order?.requestTime
                                               ?.substring(0, 10) ??
                                           ''),
                                   13.h,
                                   KeyValueText(
-                                      keyText: "حجم الصهريج",
+                                      keyText: Tr.get.order_qty,
                                       value:
                                           "${order?.orderQuantity?.toString()}m3"),
                                   13.h,
                                   KeyValueText(
-                                      keyText: "الاولوية",
+                                      keyText:Tr.get.priority ,
                                       value: order?.priorityName ?? ''),
                                   13.h,
                                   Divider(
@@ -138,21 +151,21 @@ class RequestDetailsView extends StatelessWidget {
                                   ),
                                   13.h,
                                   KeyValueText(
-                                      keyText: "تكلفة الصهريج",
+                                      keyText:Tr.get.cosetBvat,
                                       value: (order?.costBeforVAT?.toString() ??
                                               '') +
                                           Tr.get.sar),
                                   13.h,
                                   KeyValueText(
-                                      keyText: "ضريبة القيمه المضافه",
+                                      keyText: Tr.get.vat,
                                       value: (order?.vAT?.toString() ?? '') +
                                           Tr.get.sar),
                                   13.h,
-                                  const KeyValueText(
-                                      keyText: "رسوم إضافية", value: "0"),
+                                   KeyValueText(
+                                      keyText: Tr.get.another_vat, value: "0"),
                                   30.h,
                                   KeyValueText(
-                                      keyText: "إجمالي التكلفة",
+                                      keyText: Tr.get.cosetAvat,
                                       value: (order?.costAfterVAT.toString() ??
                                               '') +
                                           Tr.get.sar),
@@ -162,19 +175,19 @@ class RequestDetailsView extends StatelessWidget {
                                   ),
                                   13.h,
                                   KeyValueText(
-                                      keyText: "حالة الدفع",
+                                      keyText: Tr.get.payment_status,
                                       value: order?.paymentStatusEn ?? '',
                                       valueStyle: KTextStyle.of(context)
                                           .title
                                           .copyWith(color: Colors.green)),
                                   45.h,
                                   KButton(
-                                    title: "وصول",
+                                    title: Tr.get.arrived,
                                     onPressed: () {
                                       ActionDialog(
                                         title: Tr.get.arrived_to_client,
-                                        approveAction: "نعم",
-                                        cancelAction: "لا",
+                                        approveAction: Tr.get.yes_message,
+                                        cancelAction:Tr.get.no_message,
                                         onApproveClick: () {
                                           update.setValues(
                                               order: order, statusId: 7);
@@ -191,17 +204,15 @@ class RequestDetailsView extends StatelessWidget {
                                     kFillColor: KColors.of(context).accentColor,
                                   ),
                                   13.h,
-
-                                  if (order?.lastStatusID==7)
                                   KButton(
-                                    title: "تم التسليم",
+                                    title: Tr.get.delivered,
                                     onPressed: () {
                                       KHelper.showCustomBottomSheet(Padding(
                                         padding: const EdgeInsets.all(15.0),
                                         child: Column(
                                           children: [
                                             KTextFormField(
-                                              hintText: "الكود",
+                                              hintText: Tr.get.confrim_code,
                                               controller:
                                                   update.confrimCodeController,
                                             ),
@@ -228,7 +239,7 @@ class RequestDetailsView extends StatelessWidget {
                                   ),
                                   13.h,
                                   KButton(
-                                    title: "لم يتم التسليم",
+                                    title: Tr.get.not_delivered,
                                     onPressed: () {
                                       KHelper.showCustomBottomSheet(Padding(
                                         padding: const EdgeInsets.all(15.0),

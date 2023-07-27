@@ -2,12 +2,12 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../logic/get_orders/get_orders_bloc.dart';
 import '../../logic/main_view/main_view_bloc.dart';
 import '../../shared/appbar.dart';
 import '../../shared/theme/colors.dart';
 import '../../shared/theme/helper.dart';
 import '../home/home_screen.dart';
-
 
 class MainNavPages extends StatelessWidget {
   const MainNavPages({Key? key}) : super(key: key);
@@ -21,27 +21,27 @@ class MainNavPages extends StatelessWidget {
           return Scaffold(
             extendBodyBehindAppBar: true,
             extendBody: true,
-            appBar: KAppBar(title: MainViewBloc.of(context).label[state.index],isMainScreen: true),
+            appBar: KAppBar(
+                title: MainViewBloc.of(context).label[state.index],
+                isMainScreen: true),
             body: PageView(
               controller: MainViewBloc.of(context).pageCtrl,
               physics: const NeverScrollableScrollPhysics(),
-              children:  [
-                const HomeScreen(),
-              Container()
-
-
-              ],
+              children: [const HomeScreen(), Container()],
             ),
             floatingActionButton: FloatingActionButton(
               backgroundColor: KColors.of(context).accentColor,
-
               onPressed: () {
-                // MainViewBloc.of(context).navTaped(2);
-
+                GetOrdersBloc.of(context).get_orders(loadMore: false);
               },
-              child: const Icon(KHelper.refresh,),
+              child: const Icon(
+                KHelper.refresh,
+              ),
+
+
             ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: AnimatedBottomNavigationBar(
               height: 60,
               icons: MainViewBloc.of(context).navItems,
