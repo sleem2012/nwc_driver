@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'shared/cache/locale_storage.dart';
-import 'shared/location_helper.dart';
 import 'shared/widgets/no_conniction_view.dart';
 import 'views/auth/login/login_view.dart';
 import 'views/main_screen/main_screen.dart';
@@ -29,6 +28,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => Di.themeBloc..loadTheme()),
         BlocProvider(create: (context) => Di.apiClientBloc),
+        // BlocProvider(create: (context) => GetLocationCubit()..initLocation()),
+
         BlocProvider(
           create: (context) => Di.getOrdersBloc,
         ) ,  BlocProvider(
@@ -99,8 +100,18 @@ class _WrapperState extends State<Wrapper> {
   @override
   initState() {
     super.initState();
-    LocationHelper.determinePosition()
-        .then((value) => KStorage.i.setLocation(value));
+    // GetLocationCubit.of(context).initLocation();
+    //     .then((value) {
+    //   debugPrint(value.fold((l) {
+    //     debugPrint(l.toString());
+    //     return null;
+    //   }, (r) {
+    //     debugPrint(":hghhghgyg${r.longitude}");
+    //     KStorage.i.setLocation(r);
+    //     return null;
+    //   }));
+    // });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => nav());
   }
 

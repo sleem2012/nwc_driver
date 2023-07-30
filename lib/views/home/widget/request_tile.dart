@@ -12,7 +12,9 @@ import '../../request_details/request_details_view.dart';
 
 class RequestTile extends StatelessWidget {
   const RequestTile({super.key, required this.order});
-final OrderList order;
+
+  final OrderList order;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -32,8 +34,9 @@ final OrderList order;
           margin: const EdgeInsets.all(8),
           child: Column(
             children: [
-               IconText(
-                  icon: Icons.reset_tv_rounded, text: (order.orderNumber??'')),
+              IconText(
+                  icon: Icons.reset_tv_rounded,
+                  text: (order.orderNumber ?? '')),
               10.h,
               const Divider(),
               10.h,
@@ -42,13 +45,16 @@ final OrderList order;
                 children: [
                   IconText(
                       icon: Icons.timelapse,
-                      text:order.requestTime?.substring(0,10)??'',
+                      text: order.requestTime?.substring(0, 10) ?? '',
                       style: KTextStyle.of(context).body2),
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: CircleAvatar(
                       radius: 15,
-                      child: Text('${GetOrdersBloc.of(context).get_distance(order: order)}m', style: const TextStyle(fontSize: 11)),
+                      child: FittedBox(
+                          child: Text(
+                              '${GetOrdersBloc.of(context).get_distance(order: order)}m',
+                              style: const TextStyle(fontSize: 11))),
                     ),
                   ),
                 ],
@@ -59,7 +65,7 @@ final OrderList order;
                 children: [
                   IconText(
                     icon: Icons.location_on_outlined,
-                    text: order.customerAddress?.toString()??'',
+                    text: order.customerAddress?.toString() ?? '',
                     style: KTextStyle.of(context).body2,
                   ),
                   IconButton(

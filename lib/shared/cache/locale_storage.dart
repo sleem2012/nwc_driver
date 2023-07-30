@@ -1,6 +1,6 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:location/location.dart';
 
 import '../../data/model/user_model.dart';
 
@@ -67,14 +67,19 @@ class KStorage {
     }
   }
 
-  setLocation(Position? location) =>
-      _storage.write(KStorageKeys.location, location?.toJson());
+  setLocation(LocationData location) {
+    Map<String, double> locationMap = {
+      'latitude': location.latitude??0.0,
+      'longitude': location.longitude??0.0,
+    };
+    return _storage.write(KStorageKeys.location, locationMap);
+  }
 
-  Position? get getLocation {
+  LocationData? get getLocation {
     // debugPrint(
     //     '================= >>>> Location form cache  :${_storage.read(KStorageKeys.location)} ');
     if (_storage.read(KStorageKeys.location) != null) {
-      return Position.fromMap(_storage.read(KStorageKeys.location));
+      return LocationData.fromMap(_storage.read(KStorageKeys.location));
     }
     return null;
   }

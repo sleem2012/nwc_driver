@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/model/order_model.dart';
 import '../../data/repository/order/order_repo.dart';
+import '../../shared/cache/locale_storage.dart';
 import '../../shared/error/failures.dart';
 import '../../shared/location_helper.dart';
 import 'get_orders_state.dart';
@@ -65,17 +66,14 @@ class GetOrdersBloc extends Cubit<GetOrdersState> {
             lat2: order.customerLocationLat ?? '',
             lon2: order.customerLocationLng ?? '')
         .toStringAsFixed(0);
-
+    debugPrint(
+        '================= GetDistance Bloc : ${KStorage.i.getLocation?.longitude} ');
     return distance;
-
   }
 
-OrderList? selectedOrder;
+  OrderList? selectedOrder;
+
   void selectOrder(OrderList order) {
     selectedOrder = order;
   }
-
-
-
-
 }

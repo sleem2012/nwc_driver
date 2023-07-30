@@ -53,9 +53,12 @@ class RequestDetailsView extends StatelessWidget {
                       children: [
                         Image.asset("assets/images/person.png"),
                         8.w,
-                        Text(
-                          order?.customerName ?? '',
-                          style: KTextStyle.of(context).btnTitle,
+                        SizedBox(
+                          width: Get.width*.4,
+                          child: Text(
+                            order?.customerName ?? '',
+                            style: KTextStyle.of(context).btnTitle,
+                          ),
                         ),
                       ],
                     ),
