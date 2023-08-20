@@ -8,6 +8,7 @@ abstract class KEndPoints {
   static String order = '${baseUrl}Driver/GetWorkOrders';
   static String reject_reasons = '${baseUrl}Lookup/GetFailToDeliverReasons';
   static String update_order = '${baseUrl}Driver/ChangeWorkOrderStatus';
+  static String order_by_id = '${baseUrl}Driver/GetOrderBasicDetailsByOrderNumber';
 
 
 

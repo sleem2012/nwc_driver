@@ -83,7 +83,7 @@ flutter:
     - assets/fonts/
 
   fonts:
-    - family: Zaptron
+    - family: Zaptronهة
       fonts:
         - asset: assets/fonts/Zaptron-Regular.otf
     - family: BalooBhaijaan2

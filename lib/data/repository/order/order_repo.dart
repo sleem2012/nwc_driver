@@ -11,6 +11,8 @@ abstract class OrderRepoAbs {
   Future<Either<KFailure, OrderModel>> get_order(
       {required int page_count, required int page});
 
+  Future<Either<KFailure, OrderList>> get_order_by_id({required int id});
+
   Future<Either<KFailure, RejectReasonsModel>> get_reject_reasons();
 
   Future<Either<KFailure, Unit>> update_order_status(
@@ -31,7 +33,7 @@ class OrderRepoImp implements OrderRepoAbs {
         // "SearchKeyword": "<string>"
       },
 
-      "StatusIDs": [ 5, 6, 7],
+      "StatusIDs": [5, 6, 7],
 
 //   "excelFlage": false
     });
@@ -64,5 +66,22 @@ class OrderRepoImp implements OrderRepoAbs {
       (l) => left(l),
       (r) => right(unit),
     );
+  }
+
+  @override
+  Future<Either<KFailure, OrderList>> get_order_by_id({required int id}) async{
+
+    Future<Response<dynamic>> func = Di.dioClient.get(
+      KEndPoints.order_by_id,
+      params: {
+        "orderNumber":id
+      }
+    );
+    final result = await ApiClientHelper.responseOrFailure(func: func);
+    return result.fold(
+          (l) => left(l),
+          (r) => right(r['value']),
+    );
+
   }
 }

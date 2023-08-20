@@ -20,7 +20,7 @@ class RequestTile extends StatelessWidget {
     return InkWell(
       onTap: () {
         GetOrdersBloc.of(context).selectOrder(order);
-        Nav.to(const RequestDetailsView());
+        Nav.to( RequestDetailsView(id: int.parse(order.orderNumber??"")));
       },
       child: Container(
         decoration: KHelper.of(context).elevatedBox,

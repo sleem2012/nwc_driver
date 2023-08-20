@@ -22,6 +22,8 @@ class GetOrdersBloc extends Cubit<GetOrdersState> {
       get_ordersModel?.totalCount == get_ordersModel?.result?.length;
   int page = 1;
 
+  OrderModel orderModel=OrderModel();
+
   get_orders({bool loadMore = false}) async {
     if (no_more && loadMore) return;
     if (loadMore) {
@@ -48,7 +50,7 @@ class GetOrdersBloc extends Cubit<GetOrdersState> {
                     ?..addAll(r.value?.result ?? []),
                   totalCount: r.value?.totalCount)
               : r.value;
-
+          orderModel = r;
           debugPrint('================= GetOrders Bloc : ${r.toString()}  ');
           emit(GetOrdersState.success(model: r));
         },
@@ -75,5 +77,12 @@ class GetOrdersBloc extends Cubit<GetOrdersState> {
 
   void selectOrder(OrderList order) {
     selectedOrder = order;
+    update();
+  }
+
+  update() {
+    debugPrint('================');
+    emit(const GetOrdersStateLoading());
+    emit(GetOrdersStateSuccess(model: orderModel));
   }
 }

@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'data/repository/auth/auth_repo.dart';
 import 'data/repository/order/order_repo.dart';
+import 'logic/get_order_by_id/get_order_by_id_bloc.dart';
 import 'logic/get_orders/get_orders_bloc.dart';
 import 'logic/get_reject_reasons/get_reject_reasons_bloc.dart';
 import 'logic/login/login_bloc.dart';
@@ -52,6 +53,7 @@ abstract class Di {
     _i.registerFactory(() => LoginBloc(authRepoImpl: _i()));
     _i.registerFactory(() => LogoutBloc(authRepoImpl: _i()));
     _i.registerFactory(() => GetOrdersBloc(getOrdersRepoImp: _i()));
+    _i.registerFactory(() => GetOrderByIdBloc(repoImp: _i()));
     _i.registerFactory(() => GetRejectReasonsBloc(getRejectReasonsRepoImp: _i()));
     _i.registerFactory(() => UpdateOrderBloc(updateOrderBlocRepoImp: _i()));
   }
@@ -70,6 +72,7 @@ abstract class Di {
     await _i.unregister<GetOrdersBloc>();
     await _i.unregister<OrderRepoImp>();
     await _i.unregister<UpdateOrderBloc>();
+    await _i.unregister<GetOrderByIdBloc>();
   }
 
   // getters
@@ -91,4 +94,5 @@ abstract class Di {
     static GetRejectReasonsBloc get getRejectReasons=> _i.get<GetRejectReasonsBloc>();
 
     static UpdateOrderBloc get updateOrderBloc => _i.get<UpdateOrderBloc>();
+    static GetOrderByIdBloc get getOrderById => _i.get<GetOrderByIdBloc>();
 }

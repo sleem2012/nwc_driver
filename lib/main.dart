@@ -5,6 +5,7 @@ import 'di.dart';
 
 const bool test = false;
 void main() async {
+
   await Di.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
