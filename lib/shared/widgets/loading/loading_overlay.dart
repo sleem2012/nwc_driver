@@ -1,11 +1,9 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 
 import '../../constants.dart';
-import '../../theme/colors.dart';
 import '../../theme/helper.dart';
 import '../error/error_view.dart';
 
@@ -55,26 +53,15 @@ class KRequestOverlay extends StatelessWidget {
         children: [
           if (isLoading)
             loadingWidget ??
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 16.0, sigmaY: 16.0),
-                  child: Center(
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            width: 120,
-                            height: 120,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              backgroundColor: KColors.of(context).accentColor,
-                            ),
-                          ),
-                          Image.asset('assets/images/logo.png', height: 60, width: 60)
-                        ],
-                      ),
+                Animate(
+                  onPlay: (controller) => controller
+                    ..repeat(
+                      period: const Duration(seconds: 1),
                     ),
+                  effects: const [FadeEffect()],
+                  child: Image.asset(
+                    Constant.appLogo,
+                    // fit: BoxFit.fitHeight,
                   ),
                 )
           else if (error != null)

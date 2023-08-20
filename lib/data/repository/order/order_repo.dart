@@ -74,13 +74,13 @@ class OrderRepoImp implements OrderRepoAbs {
     Future<Response<dynamic>> func = Di.dioClient.get(
       KEndPoints.order_by_id,
       params: {
-        "orderNumber":id
+        "orderId":id
       }
     );
     final result = await ApiClientHelper.responseOrFailure(func: func);
     return result.fold(
           (l) => left(l),
-          (r) => right(r['value']),
+          (r) => right(OrderList.fromJson(r['Value'])),
     );
 
   }
