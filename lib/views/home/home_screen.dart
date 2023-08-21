@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
           isLoading: state is GetOrdersStateLoading,
           loadingWidget: const ShimmerList(),
           child: LoadMoreWrapper(
+
             onLoadMore: () async {
               GetOrdersBloc.of(context).get_orders(loadMore: true);
             },
@@ -47,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
             isLoadingMore:
                 state.maybeWhen(orElse: () => false, loadMore: () => true),
             crossAxisCount: 1,
+
           ),
         );
       },

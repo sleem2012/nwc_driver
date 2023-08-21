@@ -4,7 +4,7 @@ import '../../shared/theme/helper.dart';
 
 class LoadMoreWrapper extends StatefulWidget {
   final Widget? child;
-  final Function onLoadMore;
+  final Future<void> Function() onLoadMore;
   final Future<void> Function()? onRefresh;
   final int itemCount;
   final bool isLoadingMore;
@@ -75,7 +75,7 @@ class _LoadMoreWrapperState extends State<LoadMoreWrapper> {
           child: widget.crossAxisCount > 1
               ? GridView.builder(
                   padding: widget.padding ??
-                       EdgeInsets.symmetric(
+                      EdgeInsets.symmetric(
                               horizontal: KHelper.hPadding,
                               vertical: KHelper.hPadding)
                           .copyWith(bottom: 60),
@@ -103,7 +103,7 @@ class _LoadMoreWrapperState extends State<LoadMoreWrapper> {
                     )
                   : ListView.builder(
                       padding: widget.padding ??
-                           EdgeInsets.symmetric(
+                          EdgeInsets.symmetric(
                                   horizontal: KHelper.hPadding,
                                   vertical: KHelper.hPadding)
                               .copyWith(bottom: 60),
