@@ -658,7 +658,7 @@
   "company_edit": "Edit Company Details",
   "cant_add_pro": "Sorry , you can't create a new product right now. \n Try again later.",
   "dashboard": "Dashboard",
-  "no_order": "No Orders",
+  "no_order": "No Orders For You Right Now",
   "social": "Social",
   "failed": "failed",
   "success": "success",

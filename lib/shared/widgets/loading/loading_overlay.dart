@@ -10,16 +10,17 @@ import '../error/error_view.dart';
 class KLoadingOverlay extends StatelessWidget {
   final Widget? child;
   final bool isLoading, reverseTheme;
+  final Widget? loadingWidget;
 
   const KLoadingOverlay(
-      {Key? key, this.child, this.isLoading = false, this.reverseTheme = false})
+      {Key? key, this.child, this.isLoading = false, this.reverseTheme = false, this.loadingWidget})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child:  (isLoading)?
-        Animate(
+      loadingWidget ??Animate(
           onPlay: (controller) => controller
             ..repeat(
               period: const Duration(seconds: 1),

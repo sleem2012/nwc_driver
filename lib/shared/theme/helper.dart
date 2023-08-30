@@ -102,25 +102,28 @@ abstract class KHelper {
       isScrollControlled: isScrollControlled ?? true,
       context: Nav.navigator.currentContext!,
       backgroundColor: Colors.transparent,
-      builder: (widgetContext) => DecoratedBox(
-        decoration: KHelper.of(Nav.navigator.currentContext!).elevatedBox,
-        child: IntrinsicHeight(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: DecoratedBox(decoration: of(Nav.navigator.currentContext!).elevatedBox, child: const SizedBox(height: 8, width: 80)),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  primary: true,
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(widgetContext).viewInsets.bottom + 20, top: 30),
-                    child: child,
+      builder: (widgetContext) => StatefulBuilder(
+
+        builder:(context, setState) =>  DecoratedBox(
+          decoration: KHelper.of(Nav.navigator.currentContext!).elevatedBox,
+          child: IntrinsicHeight(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: DecoratedBox(decoration: of(Nav.navigator.currentContext!).elevatedBox, child: const SizedBox(height: 8, width: 80)),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    primary: true,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: MediaQuery.of(widgetContext).viewInsets.bottom + 20, top: 30),
+                      child: child,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../data/model/order_model.dart';
 import '../../logic/get_orders/get_orders_bloc.dart';
 import '../../logic/get_orders/get_orders_state.dart';
+import '../../shared/extensions.dart';
+import '../../shared/localization/trans.dart';
+import '../../shared/theme/text_theme.dart';
 import '../../shared/widgets/load_more_wrapper.dart';
 import '../../shared/widgets/loading/loading_overlay.dart';
 import '../../shared/widgets/shimmer_box.dart';
@@ -30,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return KRequestOverlay(
           isLoading: state is GetOrdersStateLoading,
           loadingWidget: const ShimmerList(),
-          child: LoadMoreWrapper(
+          child: (order?.result??[]).isNotEmpty?LoadMoreWrapper(
 
             onLoadMore: () async {
               GetOrdersBloc.of(context).get_orders(loadMore: true);
@@ -49,7 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 state.maybeWhen(orElse: () => false, loadMore: () => true),
             crossAxisCount: 1,
 
-          ),
+          ):Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset("assets/images/no orders.svg"),
+              10.h,
+              Text(Tr.get.no_order,style: KTextStyle.of(context).body,)
+            ],
+          )
         );
       },
     );

@@ -36,12 +36,12 @@ class _KAppBarState extends State<KAppBar> {
         centerTitle: true,
         // titleTextStyle: KTextStyle.of(context).appBar,
 
-        leading: SwitchListTile.adaptive(
-          value: true,
-          onChanged: (value) {},
-          title: const Text('data', style: TextStyle(color: Colors.red)),
-          applyCupertinoTheme: true,
-        ),
+        // leading: SwitchListTile.adaptive(
+        //   value: true,
+        //   onChanged: (value) {},
+        //   title: const Text('data', style: TextStyle(color: Colors.red)),
+        //   applyCupertinoTheme: true,
+        // ),
 
         leadingWidth: 100,
         automaticallyImplyLeading: true,

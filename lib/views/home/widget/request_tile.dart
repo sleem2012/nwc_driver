@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../data/model/order_model.dart';
@@ -34,9 +35,30 @@ class RequestTile extends StatelessWidget {
           margin: const EdgeInsets.all(8),
           child: Column(
             children: [
-              IconText(
-                  icon: Icons.reset_tv_rounded,
-                  text: (order.orderNumber ?? '')),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+                  InkWell(
+                    onTap: () {
+                      Clipboard.setData(
+                              ClipboardData(text: order.orderNumber.toString()))
+                          .then((value) => KHelper.showSnackBar(
+                              order.orderNumber.toString()));
+                    },
+                    child: IconText(
+                        icon: Icons.copy,
+                        text: (order.orderNumber ?? '')),
+                  ),
+                  Text(
+                    order.lastStatusName ?? '',
+                    style: KTextStyle.of(context)
+                        .subtitle
+                        .copyWith(
+                        color: KColors.of(context).accentColor),
+                  ),
+                ],
+              ),
               10.h,
               const Divider(),
               10.h,

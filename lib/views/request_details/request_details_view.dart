@@ -1,4 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -11,6 +13,7 @@ import '../../logic/get_reject_reasons/get_reject_reasons_bloc.dart';
 import '../../logic/get_reject_reasons/get_reject_reasons_state.dart';
 import '../../logic/update_order_bloc/update_order_bloc.dart';
 import '../../logic/update_order_bloc/update_order_state.dart';
+import '../../shared/driver_status.dart';
 import '../../shared/extensions.dart';
 import '../../shared/localization/trans.dart';
 import '../../shared/theme/colors.dart';
@@ -33,7 +36,6 @@ class RequestDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> deliverdForm = GlobalKey<FormState>();
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -119,17 +121,22 @@ class RequestDetailsView extends StatelessWidget {
                                       await GetOrderByIdBloc.of(context)
                                           .get(id: id);
                                       KHelper.showSnackBar(Tr.get.success);
+                                      Nav.back();
                                     },
                                   );
                                 },
                                 builder: (context, state) {
                                   final update = UpdateOrderBloc.of(context);
-                                  return KLoadingOverlay(
-                                    isLoading:
-                                        state is UpdateOrderBlocStateLoading,
-                                    child: Column(
-                                      children: [
-                                        Container(
+                                  return Column(
+                                    children: [
+                                      KLoadingOverlay(
+                                        isLoading: state
+                                            is UpdateOrderBlocStateLoading,
+                                        loadingWidget: ShimmerBox(
+                                          width: Get.width,
+                                          height: Get.height * .08,
+                                        ),
+                                        child: Container(
                                           decoration: KHelper.of(context)
                                               .elevatedBox
                                               .copyWith(
@@ -147,226 +154,263 @@ class RequestDetailsView extends StatelessWidget {
                                                     .copyWith(
                                                         color: Colors.green),
                                               ),
-                                              Text(
-                                                order.orderNumber ?? '',
-                                                style: KTextStyle.of(context)
-                                                    .primary,
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    order.orderNumber ?? '',
+                                                    style:
+                                                        KTextStyle.of(context)
+                                                            .primary,
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      Clipboard.setData(
+                                                              ClipboardData(
+                                                                  text: order
+                                                                      .orderNumber
+                                                                      .toString()))
+                                                          .then((value) => KHelper
+                                                              .showSnackBar(order
+                                                                  .orderNumber
+                                                                  .toString()));
+                                                    },
+                                                    icon:
+                                                        const Icon(Icons.copy),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
                                         ),
-                                        50.h,
-                                        KeyValueText(
-                                            keyText: Tr.get.request_time,
-                                            value: order.requestTime
-                                                    ?.substring(0, 10) ??
-                                                ''),
-                                        13.h,
-                                        KeyValueText(
-                                            keyText: Tr.get.order_qty,
-                                            value:
-                                                "${order.orderQuantity?.toString()}m3"),
-                                        13.h,
-                                        KeyValueText(
-                                            keyText: Tr.get.priority,
-                                            value: order.priorityName ?? ''),
-                                        13.h,
-                                        Divider(
-                                          color:
-                                              KColors.of(context).accentColor,
-                                        ),
-                                        13.h,
-                                        KeyValueText(
-                                            keyText: Tr.get.cosetBvat,
-                                            value: (order.costBeforVAT
-                                                        ?.toString() ??
-                                                    '') +
-                                                Tr.get.sar),
-                                        13.h,
-                                        KeyValueText(
-                                            keyText: Tr.get.vat,
-                                            value:
-                                                (order.vAT?.toString() ?? '') +
-                                                    Tr.get.sar),
-                                        13.h,
-                                        KeyValueText(
-                                            keyText: Tr.get.another_vat,
-                                            value: "0"),
-                                        30.h,
-                                        KeyValueText(
-                                            keyText: Tr.get.cosetAvat,
-                                            value: (order.costAfterVAT
-                                                    .toString()) +
-                                                Tr.get.sar),
-                                        13.h,
-                                        Divider(
-                                          color:
-                                              KColors.of(context).accentColor,
-                                        ),
-                                        13.h,
-                                        KeyValueText(
-                                            keyText: Tr.get.payment_status,
-                                            value: order.paymentStatusEn ?? '',
-                                            valueStyle: KTextStyle.of(context)
-                                                .title
-                                                .copyWith(color: Colors.green)),
-                                        45.h,
-                                        KButton(
-                                          title: Tr.get.arrived,
-                                          onPressed: () {
-                                            ActionDialog(
-                                              title: Tr.get.arrived_to_client,
-                                              approveAction: Tr.get.yes_message,
-                                              cancelAction: Tr.get.no_message,
-                                              onApproveClick: () {
-                                                update.setValues(
-                                                    order: order, statusId: 7);
-                                                update.update();
-                                                Nav.back();
-                                              },
-                                              onCancelClick: () {
-                                                Nav.back();
-                                              },
-                                            ).show<void>(context);
-                                          },
-                                          iconPath:
-                                              "assets/images/delivery.png",
-                                          isFlat: true,
-                                          kFillColor:
-                                              KColors.of(context).accentColor,
-                                        ),
-                                        13.h,
-                                        KButton(
-                                          title: Tr.get.delivered,
-                                          onPressed: () {
-                                            KHelper.showCustomBottomSheet(
-                                                Padding(
-                                              padding:
-                                                  const EdgeInsets.all(15.0),
-                                              child: Form(
-                                                key: deliverdForm,
-                                                child: Column(
-                                                  children: [
-                                                    KTextFormField(
-                                                      hintText:
-                                                          Tr.get.confrim_code,
-                                                      controller: update
-                                                          .confrimCodeController,
-                                                      validator: (p0) {
-                                                        if (p0!.isEmpty) {
-                                                          return Tr.get
-                                                              .field_required;
-                                                        }
-                                                        return null;
+                                      ),
+                                      50.h,
+                                      KeyValueText(
+                                          keyText: Tr.get.request_time,
+                                          value: order.requestTime
+                                                  ?.substring(0, 10) ??
+                                              ''),
+                                      13.h,
+                                      KeyValueText(
+                                          keyText: Tr.get.order_qty,
+                                          value:
+                                              "${order.orderQuantity?.toString()}m3"),
+                                      13.h,
+                                      KeyValueText(
+                                          keyText: Tr.get.priority,
+                                          value: order.priorityName ?? ''),
+                                      13.h,
+                                      Divider(
+                                        color: KColors.of(context).accentColor,
+                                      ),
+                                      13.h,
+                                      KeyValueText(
+                                          keyText: Tr.get.cosetBvat,
+                                          value:
+                                              (order.costBeforVAT?.toString() ??
+                                                      '') +
+                                                  Tr.get.sar),
+                                      13.h,
+                                      KeyValueText(
+                                          keyText: Tr.get.vat,
+                                          value: (order.vAT?.toString() ?? '') +
+                                              Tr.get.sar),
+                                      13.h,
+                                      KeyValueText(
+                                          keyText: Tr.get.another_vat,
+                                          value: "0"),
+                                      30.h,
+                                      KeyValueText(
+                                          keyText: Tr.get.cosetAvat,
+                                          value:
+                                              (order.costAfterVAT.toString()) +
+                                                  Tr.get.sar),
+                                      13.h,
+                                      Divider(
+                                        color: KColors.of(context).accentColor,
+                                      ),
+                                      13.h,
+                                      KeyValueText(
+                                          keyText: Tr.get.payment_status,
+                                          value: order.paymentStatusEn ?? '',
+                                          valueStyle: KTextStyle.of(context)
+                                              .title
+                                              .copyWith(color: Colors.green)),
+                                      45.h,
+                                      KButton(
+                                        title: Tr.get.arrived,
+                                        onPressed:
+                                            DriverStatus.isArrivedEnabled(order)
+                                                ? () {
+                                                    ActionDialog(
+                                                      title: Tr.get
+                                                          .arrived_to_client,
+                                                      approveAction:
+                                                          Tr.get.yes_message,
+                                                      cancelAction:
+                                                          Tr.get.no_message,
+                                                      onApproveClick: () {
+                                                        update.setValues(
+                                                            order: order,
+                                                            statusId: 7);
+                                                        update.update();
+                                                        // Nav.back();
                                                       },
+                                                      onCancelClick: () {
+                                                        Nav.back();
+                                                      },
+                                                    ).show<void>(context);
+                                                  }
+                                                : () {},
+                                        iconPath: "assets/images/delivery.png",
+                                        isFlat: true,
+                                        kFillColor:
+                                            DriverStatus.isArrivedEnabled(order)
+                                                ? KColors.of(context)
+                                                    .accentColor
+                                                : Colors.grey,
+                                      ),
+                                      13.h,
+                                      KButton(
+                                        title: Tr.get.delivered,
+                                        onPressed: order.lastStatusID != 4
+                                            ? () {
+                                                KHelper.showCustomBottomSheet(
+                                                    Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      15.0),
+                                                  child: Form(
+                                                    key: deliverdForm,
+                                                    child: Column(
+                                                      children: [
+                                                        KTextFormField(
+                                                          hintText: Tr
+                                                              .get.confrim_code,
+                                                          controller: update
+                                                              .confrimCodeController,
+                                                          validator: (p0) {
+                                                            if (p0!.isEmpty) {
+                                                              return Tr.get
+                                                                  .field_required;
+                                                            }
+                                                            return null;
+                                                          },
+                                                        ),
+                                                        20.h,
+                                                        KButton(
+                                                          title:
+                                                              Tr.get.send_code,
+                                                          isLoading: state
+                                                              is UpdateOrderBlocStateLoading,
+                                                          onPressed: () {
+                                                            if (deliverdForm
+                                                                .currentState!
+                                                                .validate()) {
+                                                              update.setValues(
+                                                                order: order,
+                                                                statusId: 4,
+                                                              );
+                                                              update.update();
+                                                              // Nav.back();
+                                                            }
+                                                          },
+                                                          width: Get.width,
+                                                        )
+                                                      ],
                                                     ),
-                                                    20.h,
-                                                    KButton(
-                                                      title: Tr.get.send_code,
-                                                      onPressed: () {
-                                                        if (deliverdForm
-                                                            .currentState!
-                                                            .validate()) {
+                                                  ),
+                                                ));
+                                              }
+                                            : () {},
+                                        iconPath: "assets/images/reciever.png",
+                                        isFlat: true,
+                                        kFillColor: order.lastStatusID != 4
+                                            ? const Color(0xff04B296)
+                                            : Colors.grey,
+                                      ),
+                                      13.h,
+                                      KButton(
+                                        title: Tr.get.not_delivered,
+                                        onPressed: order.lastStatusID != 4
+                                            ? () {
+                                                KHelper.showCustomBottomSheet(
+                                                    Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      15.0),
+                                                  child: Column(
+                                                    children: [
+                                                      BlocBuilder<
+                                                          GetRejectReasonsBloc,
+                                                          GetRejectReasonsState>(
+                                                        builder:
+                                                            (context, state) {
+                                                          final reject =
+                                                              GetRejectReasonsBloc
+                                                                      .of(context)
+                                                                  .model;
+                                                          return KRequestOverlay(
+                                                            onTryAgain: () =>
+                                                                GetRejectReasonsBloc.of(
+                                                                        context)
+                                                                    .get,
+                                                            loadingWidget:
+                                                                ShimmerBox(
+                                                              width: Get.width,
+                                                            ),
+                                                            isLoading: state
+                                                                is GetRejectReasonsStateLoading,
+                                                            child: KDropdownBtn<
+                                                                    RejectValue>(
+                                                                title: Tr
+                                                                    .get.reason,
+                                                                onChanged:
+                                                                    (p0) {
+                                                                  update.reasonId =
+                                                                      p0?.id;
+                                                                },
+                                                                items: reject
+                                                                        ?.value
+                                                                        ?.map((e) => KHelper.of(context).itemView<RejectValue>(
+                                                                            itemText: e.name ??
+                                                                                '',
+                                                                            value:
+                                                                                e))
+                                                                        .toList() ??
+                                                                    []),
+                                                          );
+                                                        },
+                                                      ),
+                                                      20.h,
+                                                      KTextFormField(
+                                                        hintText:
+                                                            Tr.get.comment,
+                                                        controller: update
+                                                            .commentController,
+                                                      ),
+                                                      20.h,
+                                                      KButton(
+                                                        title: Tr.get.send_code,
+                                                        onPressed: () {
                                                           update.setValues(
                                                             order: order,
-                                                            statusId: 4,
+                                                            statusId: 3,
                                                           );
                                                           update.update();
-                                                          Nav.back();
-                                                        }
-                                                      },
-                                                      width: Get.width,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ));
-                                          },
-                                          iconPath:
-                                              "assets/images/reciever.png",
-                                          isFlat: true,
-                                          kFillColor: const Color(0xff04B296),
-                                        ),
-                                        13.h,
-                                        KButton(
-                                          title: Tr.get.not_delivered,
-                                          onPressed: () {
-                                            KHelper.showCustomBottomSheet(
-                                                Padding(
-                                              padding:
-                                                  const EdgeInsets.all(15.0),
-                                              child: Column(
-                                                children: [
-                                                  BlocBuilder<
-                                                      GetRejectReasonsBloc,
-                                                      GetRejectReasonsState>(
-                                                    builder: (context, state) {
-                                                      final reject =
-                                                          GetRejectReasonsBloc
-                                                                  .of(context)
-                                                              .model;
-                                                      return KRequestOverlay(
-                                                        onTryAgain: () =>
-                                                            GetRejectReasonsBloc
-                                                                    .of(context)
-                                                                .get,
-                                                        loadingWidget:
-                                                            ShimmerBox(
-                                                          width: Get.width,
-                                                        ),
-                                                        isLoading: state
-                                                            is GetRejectReasonsStateLoading,
-                                                        child: KDropdownBtn<
-                                                                RejectValue>(
-                                                            title: Tr
-                                                                .get.reason,
-                                                            onChanged: (p0) {
-                                                              update.reasonId =
-                                                                  p0?.id;
-                                                            },
-                                                            items: reject
-                                                                    ?.value
-                                                                    ?.map((e) => KHelper.of(context).itemView<
-                                                                            RejectValue>(
-                                                                        itemText:
-                                                                            e.name ??
-                                                                                '',
-                                                                        value:
-                                                                            e))
-                                                                    .toList() ??
-                                                                []),
-                                                      );
-                                                    },
+                                                          // Nav.back();
+                                                        },
+                                                        width: Get.width,
+                                                      )
+                                                    ],
                                                   ),
-                                                  20.h,
-                                                  KTextFormField(
-                                                    hintText: Tr.get.comment,
-                                                    controller: update
-                                                        .commentController,
-                                                  ),
-                                                  20.h,
-                                                  KButton(
-                                                    title: Tr.get.send_code,
-                                                    onPressed: () {
-                                                      update.setValues(
-                                                        order: order,
-                                                        statusId: 3,
-                                                      );
-                                                      update.update();
-                                                      Nav.back();
-                                                    },
-                                                    width: Get.width,
-                                                  )
-                                                ],
-                                              ),
-                                            ));
-                                          },
-                                          iconPath: "assets/images/warning.png",
-                                          isFlat: true,
-                                          kFillColor: const Color(0xffF4C859),
-                                        ),
-                                      ],
-                                    ),
+                                                ));
+                                              }
+                                            : () {},
+                                        iconPath: "assets/images/warning.png",
+                                        isFlat: true,
+                                        kFillColor: order.lastStatusID != 4
+                                            ? const Color(0xffF4C859)
+                                            : Colors.grey,
+                                      ),
+                                    ],
                                   );
                                 },
                               ),

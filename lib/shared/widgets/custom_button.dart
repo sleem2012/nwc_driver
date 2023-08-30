@@ -25,6 +25,7 @@ class KButton extends StatelessWidget {
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15))),
       ),
       child: Ink(
+
         decoration: !isFlat
             ?  const BoxDecoration(
           gradient: LinearGradient(
