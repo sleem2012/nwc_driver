@@ -49,11 +49,11 @@ class MyApp extends StatelessWidget {
                       Get.dialog(const KOfflineView(), barrierColor: Colors.transparent, barrierDismissible: false);
                     },
                     error401: () {
-                      if (KStorage.i.getToken != null) {
-                        KStorage.i.delToken;
-                        KStorage.i.delUserInfo;
-                        Get.offAll(() => const LoginView());
-                      }
+                      // if (KStorage.i.getToken != null) {
+                      //   KStorage.i.delToken;
+                      //   KStorage.i.delUserInfo;
+                      //   Get.offAll(() => const LoginView());
+                      // }
                     },
                   );
                 },

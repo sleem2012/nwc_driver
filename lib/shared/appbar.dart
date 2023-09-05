@@ -6,6 +6,7 @@ import '../di.dart';
 import '../logic/logout/logout_bloc.dart';
 import '../logic/logout/logout_state.dart';
 import 'localization/trans.dart';
+import 'theme/colors.dart';
 import 'widgets/action_dialog.dart';
 import 'widgets/nav.dart';
 
@@ -42,45 +43,47 @@ class _KAppBarState extends State<KAppBar> {
         //   title: const Text('data', style: TextStyle(color: Colors.red)),
         //   applyCupertinoTheme: true,
         // ),
+        iconTheme: IconThemeData(color: KColors.of(context).primary),
 
         leadingWidth: 100,
         automaticallyImplyLeading: true,
         elevation: .5,
 
-        actions: [
-          if (widget.isMainScreen)
-            BlocProvider(
-              create: (context) => Di.logOut,
-              child: BlocConsumer<LogoutBloc, LogoutState>(
-                listener: (context, state) {
-                  state.whenOrNull(
-                    success: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) => const Wrapper()));
-                    },
-                  );
-                },
-                builder: (context, state) {
-                  return IconButton(
-                    onPressed: () {
-                      ActionDialog(
-                        title:Tr.get.log_out,
-                        approveAction: Tr.get.yes_message,
-                        cancelAction: Tr.get.no_message,
-                        onApproveClick: () {
-                          LogoutBloc.of(context).logout();
-                        },
-                        onCancelClick: () {
-                          Nav.back();
-                        },
-                      ).show<void>(context);
-                    },
-                    icon: const Icon(Icons.login_outlined),
-                  );
-                },
-              ),
-            ),
-        ],
+
+        // actions: [
+        //   if (widget.isMainScreen)
+        //     BlocProvider(
+        //       create: (context) => Di.logOut,
+        //       child: BlocConsumer<LogoutBloc, LogoutState>(
+        //         listener: (context, state) {
+        //           state.whenOrNull(
+        //             success: () {
+        //               Navigator.pushReplacement(context,
+        //                   MaterialPageRoute(builder: (_) => const Wrapper()));
+        //             },
+        //           );
+        //         },
+        //         builder: (context, state) {
+        //           return IconButton(
+        //             onPressed: () {
+        //               ActionDialog(
+        //                 title:Tr.get.log_out,
+        //                 approveAction: Tr.get.yes_message,
+        //                 cancelAction: Tr.get.no_message,
+        //                 onApproveClick: () {
+        //                   LogoutBloc.of(context).logout();
+        //                 },
+        //                 onCancelClick: () {
+        //                   Nav.back();
+        //                 },
+        //               ).show<void>(context);
+        //             },
+        //             icon: const Icon(Icons.login_outlined),
+        //           );
+        //         },
+        //       ),
+        //     ),
+        // ],
       ),
     );
   }
