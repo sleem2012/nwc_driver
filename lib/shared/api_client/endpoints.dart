@@ -1,7 +1,7 @@
 
 
 abstract class KEndPoints {
-  static String baseUrl =  'http://192.168.1.118:99/api/';
+  static String baseUrl =  'http://192.168.1.125:99/api';
 
   static String login = '${baseUrl}User/AuthenticateUser';
   static String logout = '${baseUrl}User/LogOut';
@@ -9,6 +9,9 @@ abstract class KEndPoints {
   static String reject_reasons = '${baseUrl}Lookup/GetFailToDeliverReasons';
   static String update_order = '${baseUrl}Driver/ChangeWorkOrderStatus';
   static String order_by_id = '${baseUrl}Driver/GetOrderBasicDetails';
+  static String send_commands= '$baseUrl/SendCommands/SendCommand';
+
+
 
 
 

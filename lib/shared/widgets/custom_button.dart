@@ -44,14 +44,7 @@ class KButton extends StatelessWidget {
           height: hieght ?? Get.height *.064,
           alignment: Alignment.center,
           child: isLoading!
-              ? FittedBox(
-            child: SizedBox(
-              height: (hieght ?? 45) - 10,
-              child: const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Colors.white),
-              ),
-            ),
-          )
+              ? const LinearProgressIndicator()
               : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

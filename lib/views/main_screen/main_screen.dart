@@ -7,6 +7,7 @@ import '../../logic/main_view/main_view_bloc.dart';
 import '../../shared/appbar.dart';
 import '../../shared/theme/colors.dart';
 import '../../shared/theme/helper.dart';
+import '../Electricity meter/home/electric_home_screen.dart';
 import '../home/home_screen.dart';
 
 class MainNavPages extends StatelessWidget {
@@ -27,19 +28,19 @@ class MainNavPages extends StatelessWidget {
             body: PageView(
               controller: MainViewBloc.of(context).pageCtrl,
               physics: const NeverScrollableScrollPhysics(),
-              children: [const HomeScreen(), Container()],
+              children: [const ElectrictyHomeScreen(), Container()],
             ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: KColors.of(context).accentColor,
-              onPressed: () {
-                GetOrdersBloc.of(context).get_orders(loadMore: false);
-              },
-              child: const Icon(
-                KHelper.refresh,
-              ),
-
-
-            ),
+            // floatingActionButton: FloatingActionButton(
+            //   backgroundColor: KColors.of(context).accentColor,
+            //   onPressed: () {
+            //     GetOrdersBloc.of(context).get_orders(loadMore: false);
+            //   },
+            //   child: const Icon(
+            //     KHelper.refresh,
+            //   ),
+            //
+            //
+            // ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             bottomNavigationBar: AnimatedBottomNavigationBar(
