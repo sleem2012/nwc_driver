@@ -5,6 +5,7 @@ import '../../data/model/order_model.dart';
 import '../../data/repository/order/order_repo.dart';
 import '../../shared/cache/locale_storage.dart';
 import '../../shared/error/failures.dart';
+import '../../shared/theme/helper.dart';
 import 'update_order_state.dart';
 
 class UpdateOrderBloc extends Cubit<UpdateOrderState> {
@@ -49,7 +50,6 @@ class UpdateOrderBloc extends Cubit<UpdateOrderState> {
     required OrderList? order,
     required int statusId,
   }) {
-    debugPrint(DateTime.now().toString());
     values = {
       "WorkOrderID": order?.workOrderID,
       "OrderNumber": order?.orderNumber,
@@ -57,7 +57,7 @@ class UpdateOrderBloc extends Cubit<UpdateOrderState> {
       if (reasonId != null) "StatusReasonID": reasonId,
       if (commentController.text.isNotEmpty)
         "StatusComment": commentController.text,
-      "StatusTime": DateFormat("yyyy-MM-dd'T'HH:mm:ss").format(DateTime.now()),
+      "StatusTime": KHelper.apiDateFormatter(DateTime.now()),
       if (confrimCodeController.text.isNotEmpty)
         "ConfirmationCode": confrimCodeController.text,
       "VehicleLatitude": KStorage.i.getLocation?.latitude,
