@@ -14,8 +14,8 @@ import '../../../shared/widgets/custom_button.dart';
 import '../../../shared/widgets/image_widget.dart';
 
 class ElectricMeterDetailsScreen extends StatelessWidget {
-  const ElectricMeterDetailsScreen({super.key});
-
+  const ElectricMeterDetailsScreen({super.key, required this.imgPath});
+final String imgPath;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,9 +41,9 @@ class ElectricMeterDetailsScreen extends StatelessWidget {
                     child: KImageWidget(
                         height: Get.height * .2,
                         width: double.infinity,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fitHeight,
                         imageUrl:
-                            "https://5.imimg.com/data5/TR/BR/EF/SELLER-9231106/single-phase-lcd-meter-1000x1000.jpg"),
+                            imgPath),
                   ),
                   40.h,
                   Column(
@@ -52,13 +52,12 @@ class ElectricMeterDetailsScreen extends StatelessWidget {
                       KButton(
                         isLoading: state is SendCommandsStateLoading,
 
-                        // hieght: 30,
-                        // isFlat: true,
+
                         title: "close",
                         onPressed: () {
                           sendCommand.send(
                               command:
-                                  'FE 1D 21 05 12 1A EF BA 88 F7 D3 4A BD F4 FA D3 EB BE 0B 48 B2 1D 5F 5B F1 A5 87 F2 43 04 74 5C 4A 20 47 16');
+                                  "FE1D2105121AEFBA88F7D34ABDF4FAD3EBD20F73716BC22A0F52A59ABD7D8F53F1200616");
                         },
                         // width: Get.width * .1,
                       ),
@@ -72,7 +71,20 @@ class ElectricMeterDetailsScreen extends StatelessWidget {
                         onPressed: () {
                           sendCommand.send(
                               command:
-                                  "FE 7C 00 FE 96 A9 A8 FA AF 2D 00 D8 E4 B3 B0 37 B6 44 00 7F 77 32 83 BC DB 1B 92 D5 B4 EA 45 68 FA 20 B0 16");
+                                  "FE1D2105121AEFBA88F7D34ABDF4FAD3EBBE0B48B21D5F5BF1A587F24304745C4A204716");
+                        },
+                      ),
+                      20.h,
+                      KButton(
+                        isLoading: state is SendCommandsStateLoading,
+                        // isFlat: true,
+                        // width: Get.width * .1,
+                        // hieght: 30,
+                        title: "open 50%",
+                        onPressed: () {
+                          sendCommand.send(
+                              command:
+                                  "FE7C00FE96A9A8FAAF2D00D8E4B3B037B644007F773283BCDB1B92D5B4EA4568FA20B016");
                         },
                       ),
                     ],

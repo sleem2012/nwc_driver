@@ -19,8 +19,8 @@ class SendCommandsRepoImp implements SendCommandsRepoAbs {
   Future<Either<KFailure, Unit>> send_commands({required String command}) async {
     Future<Response<dynamic>> func = Di.dioClient.post(KEndPoints.send_commands,data: {
 
-        "command": "541656",
-        "type": "Meterlfad"
+        "command": command,
+        "type": "Meterlfad0k"
 
     });
     final result = await ApiClientHelper.responseOrFailure(func: func);
