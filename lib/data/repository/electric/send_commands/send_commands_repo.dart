@@ -10,17 +10,18 @@ import '../../../../shared/error/failures.dart';
 
 
 abstract class SendCommandsRepoAbs {
-  Future<Either<KFailure, Unit>> send_commands({required String command});
+  Future<Either<KFailure, Unit>> send_commands({required String command,required String type,required String MeterNo});
 }
 
 class SendCommandsRepoImp implements SendCommandsRepoAbs {
 
   @override
-  Future<Either<KFailure, Unit>> send_commands({required String command}) async {
+  Future<Either<KFailure, Unit>> send_commands({required String command,required String type,required String MeterNo}) async {
     Future<Response<dynamic>> func = Di.dioClient.post(KEndPoints.send_commands,data: {
 
         "command": command,
-        "type": "Meterlfad0k"
+        "type": type,
+      "MeterNo":MeterNo,
 
     });
     final result = await ApiClientHelper.responseOrFailure(func: func);

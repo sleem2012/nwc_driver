@@ -53,7 +53,7 @@ class KButton extends StatelessWidget {
                 width: 4,
               ),
               Text(
-                title,
+                title??'',
                 style: KTextStyle.of(context).btnTitle,
               ),
             ],

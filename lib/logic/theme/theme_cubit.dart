@@ -71,9 +71,9 @@ class ThemeBloc extends Cubit<ThemeState> {
 
   Locale _readLocale() {
     if (KStorage.i.getLang == null) {
-      return const Locale('ar');
+      return const Locale('en');
     } else {
-      return Locale(KStorage.i.getLang ?? "ar");
+      return Locale(KStorage.i.getLang ?? "en");
     }
   }
 

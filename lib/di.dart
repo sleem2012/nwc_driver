@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'data/repository/auth/auth_repo.dart';
+import 'data/repository/electric/pending_commands/pending_commands_repo.dart';
 import 'data/repository/electric/send_commands/send_commands_repo.dart';
 import 'data/repository/order/order_repo.dart';
 import 'logic/get_order_by_id/get_order_by_id_bloc.dart';
@@ -12,6 +13,7 @@ import 'logic/get_orders/get_orders_bloc.dart';
 import 'logic/get_reject_reasons/get_reject_reasons_bloc.dart';
 import 'logic/login/login_bloc.dart';
 import 'logic/logout/logout_bloc.dart';
+import 'logic/pendng_commands/pendng_commands_bloc.dart';
 import 'logic/send_commands/send_commands_bloc.dart';
 import 'logic/update_order_bloc/update_order_bloc.dart';
 import 'shared/api_client/api_client_impl.dart';
@@ -52,6 +54,7 @@ abstract class Di {
 
     //electric
     _i.registerLazySingleton(() => SendCommandsRepoImp());
+    _i.registerLazySingleton(() => PendingCommandsRepoImp());
 
 
     ///bloc
@@ -65,6 +68,7 @@ abstract class Di {
 
     //electric
     _i.registerFactory(() => SendCommandsBloc(sendCommandsRepoImp: _i()));
+    _i.registerFactory(() => PendngCommandsBloc(pendngCommandsRepoImp: _i()));
 
 
   }
@@ -86,6 +90,8 @@ abstract class Di {
     await _i.unregister<GetOrderByIdBloc>();
     await _i.unregister<SendCommandsBloc>();
     await _i.unregister<SendCommandsRepoImp>();
+    await _i.unregister<PendingCommandsRepoImp>();
+    await _i.unregister<PendngCommandsBloc>();
   }
 
   // getters
@@ -109,6 +115,7 @@ abstract class Di {
     static UpdateOrderBloc get updateOrderBloc => _i.get<UpdateOrderBloc>();
     static GetOrderByIdBloc get getOrderById => _i.get<GetOrderByIdBloc>();
     static SendCommandsBloc get sendCommand => _i.get<SendCommandsBloc>();
+    static PendngCommandsBloc get getPendingCommands => _i.get<PendngCommandsBloc>();
 
 
 
