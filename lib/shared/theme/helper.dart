@@ -165,7 +165,7 @@ abstract class KHelper {
       barBlur: 10.0,
       backgroundColor: Colors.black.withOpacity(.6),
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 5),
       padding: const EdgeInsets.only(bottom: 30, left: 15, right: 15, top: 8),
       forwardAnimationCurve: Curves.decelerate,
       reverseAnimationCurve: Curves.decelerate,

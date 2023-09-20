@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
               localizationsDelegates: Tr.delegates,
               supportedLocales: Tr.supportedLocales,
               locale: ThemeBloc.of(context).locale,
+
               localeResolutionCallback:
                   (Locale? locale, Iterable<Locale> iterable) {
                 return ThemeBloc.of(context).locale;

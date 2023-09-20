@@ -12,10 +12,10 @@ class SendCommandsBloc extends Cubit<SendCommandsState> {
 
   final SendCommandsRepoImp sendCommandsRepoImp;
 
-  send({required String command}) async {
+  send({required String command,required String type,required String meterNo}) async {
     try {
       emit(const SendCommandsState.loading());
-      final result = await sendCommandsRepoImp.send_commands(command:command );
+      final result = await sendCommandsRepoImp.send_commands(command:command, type: type, MeterNo: meterNo);
       result.fold(
         (l) {
           print('heeeeeeeeeeeeeeeeeeeeeeeeeeeee${l.toString()}');
