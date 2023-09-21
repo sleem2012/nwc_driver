@@ -66,11 +66,11 @@ class LoginView extends StatelessWidget {
                             isLoading: state is LoginStateLoading,
 
                             child: Column(children: [
-                              SizedBox(
-                                  width: Get.width * .3,
-                                  child: const LangDropDown()),
+                              // SizedBox(
+                              //     width: Get.width * .3,
+                              //     child: const LangDropDown()),
 
-                              20.h,
+                              30.h,
                               Image.asset(
                                 Constant.appLogo,
                                 // fit: BoxFit.fitHeight,
@@ -78,7 +78,7 @@ class LoginView extends StatelessWidget {
                               // const SizedBox(height: 10),
                               20.h,
                               Text(
-                                "NWC",
+                                "NWC NB IoT Meters",
                                 style: KTextStyle.of(context).primary,
                               ),
                               60.h,

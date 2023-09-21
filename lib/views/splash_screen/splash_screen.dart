@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen>
   // LocationHelper.determinePosition()
   //     .then((value) => KStorage.i.setLocation(value));
    Future.delayed(const Duration(seconds: 4),() {
-     Nav.offAll(const MainNavPages());
+     Nav.offAll(const Wrapper());
 
    },);
 

@@ -14,7 +14,7 @@ class ElectrictyHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ListView.separated(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 110),
       itemBuilder: (context, index) {
         final model=MotorModel.list[index];
         return InkWell(

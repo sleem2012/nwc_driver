@@ -28,8 +28,9 @@ abstract class ApiClientHelper {
 
   static Future<Either<KFailure, dynamic>> responseOrFailure(
       {Future<Response<dynamic>>? func, Response<dynamic>? res}) async {
-    if (!(await ConnectivityCheck.call()))
+    if (!(await ConnectivityCheck.call())) {
       return left(const KFailure.offline());
+    }
     try {
       final response = (res ?? await func);
       return statusCodeChecker(response);
