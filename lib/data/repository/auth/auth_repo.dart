@@ -9,7 +9,7 @@ import '../../../shared/error/failures.dart';
 import '../../model/user_model.dart';
 
 abstract class _AuthRepo {
-  Future<Either<KFailure, UserModel>> login(
+  Future<Either<KFailure, Unit>> login(
       {required String userName, required String password});
 
   Future<Either<KFailure, Unit>> logout();
@@ -19,7 +19,7 @@ class AuthRepoImpl implements _AuthRepo {
   AuthRepoImpl();
 
   @override
-  Future<Either<KFailure, UserModel>> login(
+  Future<Either<KFailure, Unit>> login(
       {required String userName, required String password}) async {
     Future<Response<dynamic>> func = Di.dioClient.post(
       KEndPoints.login,
@@ -32,7 +32,7 @@ class AuthRepoImpl implements _AuthRepo {
     final result = await ApiClientHelper.responseOrFailure(func: func);
     return result.fold(
       (l) => left(l),
-      (r) => right(UserModel.fromJson(r)),
+      (r) => right(unit),
     );
   }
 

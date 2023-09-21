@@ -20,24 +20,24 @@ mixin _$LoginState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel loginModel) success,
-    required TResult Function(KFailure failure) error,
+    required TResult Function() success,
+    required TResult Function(String failure) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel loginModel)? success,
-    TResult? Function(KFailure failure)? error,
+    TResult? Function()? success,
+    TResult? Function(String failure)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel loginModel)? success,
-    TResult Function(KFailure failure)? error,
+    TResult Function()? success,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -126,8 +126,8 @@ class _$LoginStateInitial implements LoginStateInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel loginModel) success,
-    required TResult Function(KFailure failure) error,
+    required TResult Function() success,
+    required TResult Function(String failure) error,
   }) {
     return initial();
   }
@@ -137,8 +137,8 @@ class _$LoginStateInitial implements LoginStateInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel loginModel)? success,
-    TResult? Function(KFailure failure)? error,
+    TResult? Function()? success,
+    TResult? Function(String failure)? error,
   }) {
     return initial?.call();
   }
@@ -148,8 +148,8 @@ class _$LoginStateInitial implements LoginStateInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel loginModel)? success,
-    TResult Function(KFailure failure)? error,
+    TResult Function()? success,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -240,8 +240,8 @@ class _$LoginStateLoading implements LoginStateLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel loginModel) success,
-    required TResult Function(KFailure failure) error,
+    required TResult Function() success,
+    required TResult Function(String failure) error,
   }) {
     return loading();
   }
@@ -251,8 +251,8 @@ class _$LoginStateLoading implements LoginStateLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel loginModel)? success,
-    TResult? Function(KFailure failure)? error,
+    TResult? Function()? success,
+    TResult? Function(String failure)? error,
   }) {
     return loading?.call();
   }
@@ -262,8 +262,8 @@ class _$LoginStateLoading implements LoginStateLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel loginModel)? success,
-    TResult Function(KFailure failure)? error,
+    TResult Function()? success,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -319,8 +319,6 @@ abstract class _$$LoginStateSuccessCopyWith<$Res> {
   factory _$$LoginStateSuccessCopyWith(
           _$LoginStateSuccess value, $Res Function(_$LoginStateSuccess) then) =
       __$$LoginStateSuccessCopyWithImpl<$Res>;
-  @useResult
-  $Res call({UserModel loginModel});
 }
 
 /// @nodoc
@@ -330,61 +328,36 @@ class __$$LoginStateSuccessCopyWithImpl<$Res>
   __$$LoginStateSuccessCopyWithImpl(
       _$LoginStateSuccess _value, $Res Function(_$LoginStateSuccess) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? loginModel = null,
-  }) {
-    return _then(_$LoginStateSuccess(
-      loginModel: null == loginModel
-          ? _value.loginModel
-          : loginModel // ignore: cast_nullable_to_non_nullable
-              as UserModel,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$LoginStateSuccess implements LoginStateSuccess {
-  const _$LoginStateSuccess({required this.loginModel});
-
-  @override
-  final UserModel loginModel;
+  const _$LoginStateSuccess();
 
   @override
   String toString() {
-    return 'LoginState.success(loginModel: $loginModel)';
+    return 'LoginState.success()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoginStateSuccess &&
-            (identical(other.loginModel, loginModel) ||
-                other.loginModel == loginModel));
+        (other.runtimeType == runtimeType && other is _$LoginStateSuccess);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loginModel);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoginStateSuccessCopyWith<_$LoginStateSuccess> get copyWith =>
-      __$$LoginStateSuccessCopyWithImpl<_$LoginStateSuccess>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel loginModel) success,
-    required TResult Function(KFailure failure) error,
+    required TResult Function() success,
+    required TResult Function(String failure) error,
   }) {
-    return success(loginModel);
+    return success();
   }
 
   @override
@@ -392,10 +365,10 @@ class _$LoginStateSuccess implements LoginStateSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel loginModel)? success,
-    TResult? Function(KFailure failure)? error,
+    TResult? Function()? success,
+    TResult? Function(String failure)? error,
   }) {
-    return success?.call(loginModel);
+    return success?.call();
   }
 
   @override
@@ -403,12 +376,12 @@ class _$LoginStateSuccess implements LoginStateSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel loginModel)? success,
-    TResult Function(KFailure failure)? error,
+    TResult Function()? success,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(loginModel);
+      return success();
     }
     return orElse();
   }
@@ -452,13 +425,7 @@ class _$LoginStateSuccess implements LoginStateSuccess {
 }
 
 abstract class LoginStateSuccess implements LoginState {
-  const factory LoginStateSuccess({required final UserModel loginModel}) =
-      _$LoginStateSuccess;
-
-  UserModel get loginModel;
-  @JsonKey(ignore: true)
-  _$$LoginStateSuccessCopyWith<_$LoginStateSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory LoginStateSuccess() = _$LoginStateSuccess;
 }
 
 /// @nodoc
@@ -467,9 +434,7 @@ abstract class _$$LoginStateErrorCopyWith<$Res> {
           _$LoginStateError value, $Res Function(_$LoginStateError) then) =
       __$$LoginStateErrorCopyWithImpl<$Res>;
   @useResult
-  $Res call({KFailure failure});
-
-  $KFailureCopyWith<$Res> get failure;
+  $Res call({String failure});
 }
 
 /// @nodoc
@@ -489,16 +454,8 @@ class __$$LoginStateErrorCopyWithImpl<$Res>
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as KFailure,
+              as String,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $KFailureCopyWith<$Res> get failure {
-    return $KFailureCopyWith<$Res>(_value.failure, (value) {
-      return _then(_value.copyWith(failure: value));
-    });
   }
 }
 
@@ -508,7 +465,7 @@ class _$LoginStateError implements LoginStateError {
   const _$LoginStateError({required this.failure});
 
   @override
-  final KFailure failure;
+  final String failure;
 
   @override
   String toString() {
@@ -537,8 +494,8 @@ class _$LoginStateError implements LoginStateError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel loginModel) success,
-    required TResult Function(KFailure failure) error,
+    required TResult Function() success,
+    required TResult Function(String failure) error,
   }) {
     return error(failure);
   }
@@ -548,8 +505,8 @@ class _$LoginStateError implements LoginStateError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel loginModel)? success,
-    TResult? Function(KFailure failure)? error,
+    TResult? Function()? success,
+    TResult? Function(String failure)? error,
   }) {
     return error?.call(failure);
   }
@@ -559,8 +516,8 @@ class _$LoginStateError implements LoginStateError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel loginModel)? success,
-    TResult Function(KFailure failure)? error,
+    TResult Function()? success,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -608,10 +565,10 @@ class _$LoginStateError implements LoginStateError {
 }
 
 abstract class LoginStateError implements LoginState {
-  const factory LoginStateError({required final KFailure failure}) =
+  const factory LoginStateError({required final String failure}) =
       _$LoginStateError;
 
-  KFailure get failure;
+  String get failure;
   @JsonKey(ignore: true)
   _$$LoginStateErrorCopyWith<_$LoginStateError> get copyWith =>
       throw _privateConstructorUsedError;

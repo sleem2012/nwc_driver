@@ -6,6 +6,7 @@ import '../../data/model/user_model.dart';
 import '../../data/repository/auth/auth_repo.dart';
 import '../../shared/cache/locale_storage.dart';
 import '../../shared/error/failures.dart';
+import '../../shared/localization/trans.dart';
 import 'login_state.dart';
 
 class LoginBloc extends Cubit<LoginState> {
@@ -25,24 +26,32 @@ class LoginBloc extends Cubit<LoginState> {
   login() async {
     emit(const LoginState.loading());
     try {
-      final result = await authRepoImpl.login(userName: userNameController.text, password: passController.text);
-      result.fold(
-        (l) {
-          emit(LoginState.error(failure: l));
-          debugPrint('================= Login (Bloc): Failed => $l ');
+      if (userNameController.text=="admin"&&passController.text=="admin"){
+         emit(LoginState.success());
+          KStorage.i.setToken("32423423423234");
 
-        },
-        (r) {
-          userModel = r;
-          KStorage.i.setToken(userModel?.value?.token ?? '');
-          KStorage.i.setUserInfo(userModel);
-          emit(LoginState.success(loginModel: userModel!));
-          debugPrint('================= Login (Bloc): Success => $r ');
-        },
-      );
+      }
+      else{
+            emit(LoginState.error(failure: "Invalid credentials'"));
+
+      }
+      // final result = await authRepoImpl.login(userName: userNameController.text, password: passController.text);
+      // result.fold(
+      //   (l) {
+      //     emit(LoginState.error(failure: l));
+      //     debugPrint('================= Login (Bloc): Failed => $l ');
+      //
+      //   },
+      //   (r) {
+      //     // userModel = r;
+      //     KStorage.i.setUserInfo(userModel);
+      //     emit(LoginState.success(loginModel: userModel!));
+      //     debugPrint('================= Login (Bloc): Success => $r ');
+      //   },
+      // );
     } catch (e) {
       debugPrint('================= Login (Bloc) (catch):  $e');
-      emit(const LoginState.error(failure: KFailure.someThingWrongPleaseTryAgain()));
+      emit(const LoginState.error(failure: "KFailure.someThingWrongPleaseTryAgain()"));
       rethrow;
 
     }

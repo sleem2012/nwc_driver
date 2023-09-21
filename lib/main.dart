@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app.dart';
 import 'di.dart';
+import 'shared/cache/locale_storage.dart';
 
 const bool test = false;
 void main() async {
-
+// KStorage.i.erase;
   await Di.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 

@@ -32,9 +32,12 @@ class LoginView extends StatelessWidget {
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
             state.whenOrNull(
-              success: (userModel) async {
+              success: () async {
                  await Di.reset(context);
                 Nav.offAll(const MainNavPages());
+              },
+              error: (failure) {
+                KHelper.showSnackBar(failure);
               },
             );
           },
