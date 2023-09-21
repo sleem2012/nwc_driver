@@ -46,16 +46,16 @@ abstract class ApiClientHelper {
   static Either<KFailure, dynamic> statusCodeChecker(
       Response<dynamic>? response) {
     if (response?.statusCode == 200) {
-      // final isError = response?.data["isErrorstate"] == true;
-      // if (isError) {
-      //   KHelper.showSnackBar(
-      //     response?.data["errorMessage"].toString() ?? '',
-      //     // Tr.get2(key: response?.data["errorMessage"].toString() ?? '', value: []),
-      //     isTop: true,
-      //     // title: Tr.get2(key: response?.data["status"].toString() ?? '', value: []),
-      //   );
-      //   return left(const KFailure.error("ErrorDescription"));
-      // }
+      final isError = response?.data["response"]['isSucceeded'] == false;
+      if (isError) {
+        KHelper.showSnackBar(
+          response?.data["response"]["errorDescription"].toString() ?? '',
+          // Tr.get2(key: response?.data["errorMessage"].toString() ?? '', value: []),
+          isTop: true,
+          // title: Tr.get2(key: response?.data["status"].toString() ?? '', value: []),
+        );
+        return left(const KFailure.error("errorDescription"));
+      }
       return right(response?.data);
     } else {
       final fail = statusCodeToFailureMap(response) ??

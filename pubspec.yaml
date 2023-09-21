@@ -43,7 +43,9 @@ dependencies:
   http:
   uuid:
   flutter_animate:
-  location:
+  location: ^5.0.1
+  onesignal_flutter:
+  firebase_core: 
 
 
 dependency_overrides:

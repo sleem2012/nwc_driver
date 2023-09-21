@@ -9,8 +9,10 @@ abstract class KEndPoints {
   static String reject_reasons = '${baseUrl}Lookup/GetFailToDeliverReasons';
   static String update_order = '${baseUrl}Driver/ChangeWorkOrderStatus';
   static String order_by_id = '${baseUrl}Driver/GetOrderBasicDetails';
-  static String send_commands= '$baseUrl/SendCommands/SendCommand';
-  static String get_pending_commands= '$baseUrl/SendCommands/GetPendingCommnds';
+  static String send_commands= '$baseUrl/Device/SetDeviceCommand';
+  static String get_device_details= '$baseUrl/Device/GetDeviceDetails';
+  static String getDevicesList= '$baseUrl/Device/GetDevicesList';
+  static String get_buttons_list= '$baseUrl/Lookup/GetDeviceTypeCommandsList';
 
 
 

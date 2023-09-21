@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/model/devices_list_model.dart';
 import '../../../../data/model/motor_model.dart';
 import '../../../../shared/extensions.dart';
 import '../../../../shared/localization/trans.dart';
@@ -11,9 +12,10 @@ import '../../../../shared/widgets/custom_button.dart';
 import '../../../../shared/widgets/image_widget.dart';
 
 class ElictricItem extends StatelessWidget {
-  const ElictricItem({super.key, required this.model});
+  const ElictricItem({super.key, required this.model, required this.image});
 
-final MotorModel model;
+  final DeviceListValue model;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +28,32 @@ final MotorModel model;
             height: Get.height * .2,
             width: double.infinity,
             fit: BoxFit.scaleDown,
-            imageUrl: model.image,
+            imageUrl: image,
           ),
           10.h,
           Text(
-            model.modelNo??'',
-            style: KTextStyle.of(context).title,
+            model.deviceNumber ?? '',
+            style: KTextStyle.of(context).title.copyWith(fontSize: 26),
           )
+          ,
+          10.h,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                model.deviceStatus ?? '',
+                style: KTextStyle.of(context).title.copyWith(
+                    color: model.deviceStatus == "Online"
+                        ? Colors.green
+                        : KColors.of(context).primary),
+              ),
+              Text(
+                model.modelName ?? '',
+                style: KTextStyle.of(context).title,
+              )
+            ],
+          ),
+
         ],
       ),
     );

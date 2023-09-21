@@ -12,13 +12,13 @@ class SendCommandsBloc extends Cubit<SendCommandsState> {
 
   final SendCommandsRepoImp sendCommandsRepoImp;
 
-  send({required String command,required String type,required String meterNo}) async {
+  send({required int command,required device_id}) async {
     try {
       emit(const SendCommandsState.loading());
-      final result = await sendCommandsRepoImp.send_commands(command:command, type: type, MeterNo: meterNo);
+      final result = await sendCommandsRepoImp.send_commands(command:command, device_id: device_id);
       result.fold(
         (l) {
-          print('heeeeeeeeeeeeeeeeeeeeeeeeeeeee${l.toString()}');
+          // print('heeeeeeeeeeeeeeeeeeeeeeeeeeeee${l.toString()}');
           debugPrint('================= SendCommands Bloc : ${KFailure.toError(l)}');
           emit(SendCommandsState.error(error: l));
         },

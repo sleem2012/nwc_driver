@@ -1,69 +1,123 @@
-class PendingCommandData {
+class DeviceDetailsModel {
+  Value? value;
+
+  DeviceDetailsModel({this.value});
+
+  DeviceDetailsModel.fromJson(Map<String, dynamic> json) {
+    value = json['value'] != null ? Value.fromJson(json['value']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (value != null) {
+      data['value'] = value!.toJson();
+    }
+    return data;
+  }
+}
+
+class Value {
   int? id;
-  String? command;
-  String? commandName;
-  String? type;
-  bool? isPending;
-  String? createdDt;
-  String? updatedDt;
-  String? meterNo;
-  String? meter_Status;
+  String? deviceNumber;
+  String? deviceStatus;
+  String? lastConnectionDate;
+  String? lastReadingDate;
+  num? lastReadingValue;
+  num? deviceCategoryId;
+  num? deviceModelId;
+  int? valveStatusId;
+  String? categoryName;
+  String? modelName;
+  String? valveStatus;
+  LastCommand? lastCommand;
 
-  PendingCommandData(
+  Value(
       {this.id,
-        this.command,
-        this.commandName,
-        this.type,
-        this.isPending,
-        this.createdDt,
-        this.updatedDt,
-        this.meter_Status,
-        this.meterNo});
+        this.deviceNumber,
+        this.deviceStatus,
+        this.lastConnectionDate,
+        this.lastReadingDate,
+        this.lastReadingValue,
+        this.deviceCategoryId,
+        this.deviceModelId,
+        this.valveStatusId,
+        this.categoryName,
+        this.modelName,
+        this.valveStatus,
+        this.lastCommand});
 
-  PendingCommandData.fromJson(Map<String, dynamic> json) {
+  Value.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    command = json['command'];
-    commandName = json['commandName'];
-    type = json['type'];
-    isPending = json['is_Pending'];
-    createdDt = json['created_Dt'];
-    updatedDt = json['updated_Dt'];
-    meterNo = json['meter_No'];
-    meter_Status = json['meter_Status'];
+    deviceNumber = json['device_number'];
+    deviceStatus = json['device_status'];
+    lastConnectionDate = json['last_connection_date'];
+    lastReadingDate = json['last_reading_date'];
+    lastReadingValue = json['last_reading_value'];
+    deviceCategoryId = json['device_category_id'];
+    deviceModelId = json['device_model_id'];
+    valveStatusId = json['valve_status_id'];
+    categoryName = json['category_name'];
+    modelName = json['model_name'];
+    valveStatus = json['valve_status'];
+    lastCommand = json['last_command'] != null
+        ? LastCommand.fromJson(json['last_command'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['command'] = command;
-    data['commandName'] = commandName;
-    data['type'] = type;
-    data['is_Pending'] = isPending;
-    data['created_Dt'] = createdDt;
-    data['updated_Dt'] = updatedDt;
-    data['meter_No'] = meterNo;
-    data['meter_Status'] = meter_Status;
+    data['device_number'] = deviceNumber;
+    data['device_status'] = deviceStatus;
+    data['last_connection_date'] = lastConnectionDate;
+    data['last_reading_date'] = lastReadingDate;
+    data['last_reading_value'] = lastReadingValue;
+    data['device_category_id'] = deviceCategoryId;
+    data['device_model_id'] = deviceModelId;
+    data['valve_status_id'] = valveStatusId;
+    data['category_name'] = categoryName;
+    data['model_name'] = modelName;
+    data['valve_status'] = valveStatus;
+    if (lastCommand != null) {
+      data['last_command'] = lastCommand!.toJson();
+    }
     return data;
   }
 }
 
-class PendingCommandsModel {
-  PendingCommandData? data;
-  bool? isErrorstate;
+class LastCommand {
+  int? id;
+  int? deviceId;
+  bool? isPending;
+  String? createdDate;
+  String? updatedDate;
+  String? commandName;
 
-  PendingCommandsModel({this.data, this.isErrorstate});
+  LastCommand(
+      {this.id,
+        this.deviceId,
+        this.isPending,
+        this.createdDate,
+        this.updatedDate,
+        this.commandName});
 
-  PendingCommandsModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? PendingCommandData.fromJson(json['data']) : null;
-    isErrorstate = json['isErrorstate'];
+  LastCommand.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    deviceId = json['device_id'];
+    isPending = json['is_pending'];
+    createdDate = json['created_date'];
+    updatedDate = json['updated_date'];
+    commandName = json['command_name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    data['isErrorstate'] = isErrorstate;
+    data['id'] = id;
+    data['device_id'] = deviceId;
+    data['is_pending'] = isPending;
+    data['created_date'] = createdDate;
+    data['updated_date'] = updatedDate;
+    data['command_name'] = commandName;
     return data;
   }
 }

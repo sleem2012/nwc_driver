@@ -9,21 +9,21 @@ import 'package:dio/dio.dart';
 import '../../../model/pending_commands_model.dart';
 
 abstract class PendingCommandsRepoAbs {
-  Future<Either<KFailure, PendingCommandsModel>> get_pending_commands(
-      {required String type,required String? meterNo});
+  Future<Either<KFailure, DeviceDetailsModel>> get_pending_commands(
+      {required String deviceId});
 }
 
 class PendingCommandsRepoImp implements PendingCommandsRepoAbs {
   @override
-  Future<Either<KFailure, PendingCommandsModel>> get_pending_commands(
-      {required String type,required String? meterNo}) async {
+  Future<Either<KFailure, DeviceDetailsModel>> get_pending_commands(
+      {required String deviceId}) async {
     Future<Response<dynamic>> func = Di.dioClient
-        .get(KEndPoints.get_pending_commands, params: {"type": type,"MeterNo": meterNo});
+        .get(KEndPoints.get_device_details, params: {"deviceId": deviceId});
     final result = await ApiClientHelper.responseOrFailure(func: func);
     return result.fold(
       (l) => left(l),
       (r) {
-        return Right(PendingCommandsModel.fromJson(r));
+        return Right(DeviceDetailsModel.fromJson(r));
       },
     );
   }

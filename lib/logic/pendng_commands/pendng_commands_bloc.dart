@@ -5,35 +5,36 @@ import '../../data/repository/electric/pending_commands/pending_commands_repo.da
 import '../../shared/error/failures.dart';
 import 'pendng_commands_state.dart';
 
-class PendngCommandsBloc extends Cubit<PendngCommandsState> {
-  PendngCommandsBloc({required this.pendngCommandsRepoImp}) : super(const PendngCommandsState.initial());
+class GetDeviceDetailBloc extends Cubit<GetDeviceDetailsState> {
+  GetDeviceDetailBloc({required this.pendngCommandsRepoImp}) : super(const GetDeviceDetailsState.initial());
 
-  static PendngCommandsBloc of(BuildContext context) => BlocProvider.of<PendngCommandsBloc>(context);
+  static GetDeviceDetailBloc of(BuildContext context) => BlocProvider.of<GetDeviceDetailBloc>(context);
 
 
   final PendingCommandsRepoImp pendngCommandsRepoImp;
 
 
-  PendingCommandData? pendingCommandData;
-  get({required String type,required String? meterNo}) async {
+  DeviceDetailsModel? pendingCommandData;
+  get({required String deviceId}) async {
     try {
-      emit(const PendngCommandsState.loading());
-      final result = await pendngCommandsRepoImp.get_pending_commands(type: type, meterNo: meterNo);
+      emit(const GetDeviceDetailsState.loading());
+      final result = await pendngCommandsRepoImp.get_pending_commands(deviceId: deviceId, );
       result.fold(
         (l) {
           debugPrint('================= PendngCommands Bloc : ${KFailure.toError(l)}');
-          emit(PendngCommandsState.error(error: l));
+          emit(GetDeviceDetailsState.error(error: l));
         },
         (r) {
-          pendingCommandData=r.data;
+          pendingCommandData=r;
           debugPrint('================= PendngCommands Bloc : ${r.toString()}  ');
-          emit(PendngCommandsState.success(model: r));
+          emit(GetDeviceDetailsState.success(model: r));
         },
       );
     } catch (e) {
-      // rethrow;
       debugPrint('================= PendngCommands Bloc (Catch): ${e.toString()} ');
-      emit(const PendngCommandsState.error(error: KFailure.someThingWrongPleaseTryAgain()));
+      emit(const GetDeviceDetailsState.error(error: KFailure.someThingWrongPleaseTryAgain()));
+      rethrow;
+
     }
   }
 }

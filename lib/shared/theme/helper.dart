@@ -12,9 +12,9 @@ import '../widgets/map_picker/view/map.dart';
 import 'colors.dart';
 import 'text_theme.dart';
 
-String get dummyNetLogo => 'https://forall.sa/assets/image/no-image.jpg';
+String get dummyNetLogo => '';
 
-String get dummyNetImg => 'https://forall.sa/assets/image/bg.jpg';
+String get dummyNetImg => '';
 
 abstract class KHelper {
   static KHelperGetters of(BuildContext context) {

@@ -1,13 +1,17 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'data/repository/auth/auth_repo.dart';
 import 'data/repository/electric/pending_commands/pending_commands_repo.dart';
 import 'data/repository/electric/send_commands/send_commands_repo.dart';
 import 'data/repository/order/order_repo.dart';
+// import 'firebase_options.dart';
+import 'logic/get_devices/get_devices_bloc.dart';
 import 'logic/get_order_by_id/get_order_by_id_bloc.dart';
 import 'logic/get_orders/get_orders_bloc.dart';
 import 'logic/get_reject_reasons/get_reject_reasons_bloc.dart';
@@ -29,7 +33,15 @@ abstract class Di {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     await GetStorage.init();
+
     Bloc.observer = MyBlocObserver();
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+
+    OneSignal.initialize("f6b3e21f-c891-493f-8c29-04a33e6a4f66");
+
+    OneSignal.Notifications.requestPermission(true);
+    // await Firebase.initializeApp();
+
     // await NotificationCtrl.fcm_init('Forall Sales');
     _reg();
   }
@@ -68,7 +80,7 @@ abstract class Di {
 
     //electric
     _i.registerFactory(() => SendCommandsBloc(sendCommandsRepoImp: _i()));
-    _i.registerFactory(() => PendngCommandsBloc(pendngCommandsRepoImp: _i()));
+    _i.registerFactory(() => GetDeviceDetailBloc(pendngCommandsRepoImp: _i()));
 
 
   }
@@ -91,7 +103,7 @@ abstract class Di {
     await _i.unregister<SendCommandsBloc>();
     await _i.unregister<SendCommandsRepoImp>();
     await _i.unregister<PendingCommandsRepoImp>();
-    await _i.unregister<PendngCommandsBloc>();
+    await _i.unregister<GetDeviceDetailBloc>();
   }
 
   // getters
@@ -115,7 +127,7 @@ abstract class Di {
     static UpdateOrderBloc get updateOrderBloc => _i.get<UpdateOrderBloc>();
     static GetOrderByIdBloc get getOrderById => _i.get<GetOrderByIdBloc>();
     static SendCommandsBloc get sendCommand => _i.get<SendCommandsBloc>();
-    static PendngCommandsBloc get getPendingCommands => _i.get<PendngCommandsBloc>();
+    static GetDeviceDetailBloc get getPendingCommands => _i.get<GetDeviceDetailBloc>();
 
 
 

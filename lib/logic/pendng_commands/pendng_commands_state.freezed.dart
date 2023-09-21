@@ -15,12 +15,12 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$PendngCommandsState {
+mixin _$GetDeviceDetailsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(PendingCommandsModel? model) success,
+    required TResult Function(DeviceDetailsModel? model) success,
     required TResult Function(KFailure error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$PendngCommandsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(PendingCommandsModel? model)? success,
+    TResult? Function(DeviceDetailsModel? model)? success,
     TResult? Function(KFailure error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$PendngCommandsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(PendingCommandsModel? model)? success,
+    TResult Function(DeviceDetailsModel? model)? success,
     TResult Function(KFailure error)? error,
     required TResult orElse(),
   }) =>
@@ -69,16 +69,17 @@ mixin _$PendngCommandsState {
 }
 
 /// @nodoc
-abstract class $PendngCommandsStateCopyWith<$Res> {
-  factory $PendngCommandsStateCopyWith(
-          PendngCommandsState value, $Res Function(PendngCommandsState) then) =
-      _$PendngCommandsStateCopyWithImpl<$Res, PendngCommandsState>;
+abstract class $GetDeviceDetailsStateCopyWith<$Res> {
+  factory $GetDeviceDetailsStateCopyWith(GetDeviceDetailsState value,
+          $Res Function(GetDeviceDetailsState) then) =
+      _$GetDeviceDetailsStateCopyWithImpl<$Res, GetDeviceDetailsState>;
 }
 
 /// @nodoc
-class _$PendngCommandsStateCopyWithImpl<$Res, $Val extends PendngCommandsState>
-    implements $PendngCommandsStateCopyWith<$Res> {
-  _$PendngCommandsStateCopyWithImpl(this._value, this._then);
+class _$GetDeviceDetailsStateCopyWithImpl<$Res,
+        $Val extends GetDeviceDetailsState>
+    implements $GetDeviceDetailsStateCopyWith<$Res> {
+  _$GetDeviceDetailsStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -96,7 +97,7 @@ abstract class _$$PendngCommandsStateInitialCopyWith<$Res> {
 
 /// @nodoc
 class __$$PendngCommandsStateInitialCopyWithImpl<$Res>
-    extends _$PendngCommandsStateCopyWithImpl<$Res,
+    extends _$GetDeviceDetailsStateCopyWithImpl<$Res,
         _$PendngCommandsStateInitial>
     implements _$$PendngCommandsStateInitialCopyWith<$Res> {
   __$$PendngCommandsStateInitialCopyWithImpl(
@@ -112,7 +113,7 @@ class _$PendngCommandsStateInitial implements PendngCommandsStateInitial {
 
   @override
   String toString() {
-    return 'PendngCommandsState.initial()';
+    return 'GetDeviceDetailsState.initial()';
   }
 
   @override
@@ -130,7 +131,7 @@ class _$PendngCommandsStateInitial implements PendngCommandsStateInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(PendingCommandsModel? model) success,
+    required TResult Function(DeviceDetailsModel? model) success,
     required TResult Function(KFailure error) error,
   }) {
     return initial();
@@ -141,7 +142,7 @@ class _$PendngCommandsStateInitial implements PendngCommandsStateInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(PendingCommandsModel? model)? success,
+    TResult? Function(DeviceDetailsModel? model)? success,
     TResult? Function(KFailure error)? error,
   }) {
     return initial?.call();
@@ -152,7 +153,7 @@ class _$PendngCommandsStateInitial implements PendngCommandsStateInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(PendingCommandsModel? model)? success,
+    TResult Function(DeviceDetailsModel? model)? success,
     TResult Function(KFailure error)? error,
     required TResult orElse(),
   }) {
@@ -200,7 +201,7 @@ class _$PendngCommandsStateInitial implements PendngCommandsStateInitial {
   }
 }
 
-abstract class PendngCommandsStateInitial implements PendngCommandsState {
+abstract class PendngCommandsStateInitial implements GetDeviceDetailsState {
   const factory PendngCommandsStateInitial() = _$PendngCommandsStateInitial;
 }
 
@@ -214,7 +215,7 @@ abstract class _$$PendngCommandsStateLoadingCopyWith<$Res> {
 
 /// @nodoc
 class __$$PendngCommandsStateLoadingCopyWithImpl<$Res>
-    extends _$PendngCommandsStateCopyWithImpl<$Res,
+    extends _$GetDeviceDetailsStateCopyWithImpl<$Res,
         _$PendngCommandsStateLoading>
     implements _$$PendngCommandsStateLoadingCopyWith<$Res> {
   __$$PendngCommandsStateLoadingCopyWithImpl(
@@ -230,7 +231,7 @@ class _$PendngCommandsStateLoading implements PendngCommandsStateLoading {
 
   @override
   String toString() {
-    return 'PendngCommandsState.loading()';
+    return 'GetDeviceDetailsState.loading()';
   }
 
   @override
@@ -248,7 +249,7 @@ class _$PendngCommandsStateLoading implements PendngCommandsStateLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(PendingCommandsModel? model) success,
+    required TResult Function(DeviceDetailsModel? model) success,
     required TResult Function(KFailure error) error,
   }) {
     return loading();
@@ -259,7 +260,7 @@ class _$PendngCommandsStateLoading implements PendngCommandsStateLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(PendingCommandsModel? model)? success,
+    TResult? Function(DeviceDetailsModel? model)? success,
     TResult? Function(KFailure error)? error,
   }) {
     return loading?.call();
@@ -270,7 +271,7 @@ class _$PendngCommandsStateLoading implements PendngCommandsStateLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(PendingCommandsModel? model)? success,
+    TResult Function(DeviceDetailsModel? model)? success,
     TResult Function(KFailure error)? error,
     required TResult orElse(),
   }) {
@@ -318,7 +319,7 @@ class _$PendngCommandsStateLoading implements PendngCommandsStateLoading {
   }
 }
 
-abstract class PendngCommandsStateLoading implements PendngCommandsState {
+abstract class PendngCommandsStateLoading implements GetDeviceDetailsState {
   const factory PendngCommandsStateLoading() = _$PendngCommandsStateLoading;
 }
 
@@ -329,12 +330,12 @@ abstract class _$$PendngCommandsStateSuccessCopyWith<$Res> {
           $Res Function(_$PendngCommandsStateSuccess) then) =
       __$$PendngCommandsStateSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({PendingCommandsModel? model});
+  $Res call({DeviceDetailsModel? model});
 }
 
 /// @nodoc
 class __$$PendngCommandsStateSuccessCopyWithImpl<$Res>
-    extends _$PendngCommandsStateCopyWithImpl<$Res,
+    extends _$GetDeviceDetailsStateCopyWithImpl<$Res,
         _$PendngCommandsStateSuccess>
     implements _$$PendngCommandsStateSuccessCopyWith<$Res> {
   __$$PendngCommandsStateSuccessCopyWithImpl(
@@ -351,7 +352,7 @@ class __$$PendngCommandsStateSuccessCopyWithImpl<$Res>
       model: freezed == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as PendingCommandsModel?,
+              as DeviceDetailsModel?,
     ));
   }
 }
@@ -362,11 +363,11 @@ class _$PendngCommandsStateSuccess implements PendngCommandsStateSuccess {
   const _$PendngCommandsStateSuccess({required this.model});
 
   @override
-  final PendingCommandsModel? model;
+  final DeviceDetailsModel? model;
 
   @override
   String toString() {
-    return 'PendngCommandsState.success(model: $model)';
+    return 'GetDeviceDetailsState.success(model: $model)';
   }
 
   @override
@@ -392,7 +393,7 @@ class _$PendngCommandsStateSuccess implements PendngCommandsStateSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(PendingCommandsModel? model) success,
+    required TResult Function(DeviceDetailsModel? model) success,
     required TResult Function(KFailure error) error,
   }) {
     return success(model);
@@ -403,7 +404,7 @@ class _$PendngCommandsStateSuccess implements PendngCommandsStateSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(PendingCommandsModel? model)? success,
+    TResult? Function(DeviceDetailsModel? model)? success,
     TResult? Function(KFailure error)? error,
   }) {
     return success?.call(model);
@@ -414,7 +415,7 @@ class _$PendngCommandsStateSuccess implements PendngCommandsStateSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(PendingCommandsModel? model)? success,
+    TResult Function(DeviceDetailsModel? model)? success,
     TResult Function(KFailure error)? error,
     required TResult orElse(),
   }) {
@@ -462,12 +463,12 @@ class _$PendngCommandsStateSuccess implements PendngCommandsStateSuccess {
   }
 }
 
-abstract class PendngCommandsStateSuccess implements PendngCommandsState {
+abstract class PendngCommandsStateSuccess implements GetDeviceDetailsState {
   const factory PendngCommandsStateSuccess(
-          {required final PendingCommandsModel? model}) =
+          {required final DeviceDetailsModel? model}) =
       _$PendngCommandsStateSuccess;
 
-  PendingCommandsModel? get model;
+  DeviceDetailsModel? get model;
   @JsonKey(ignore: true)
   _$$PendngCommandsStateSuccessCopyWith<_$PendngCommandsStateSuccess>
       get copyWith => throw _privateConstructorUsedError;
@@ -486,7 +487,8 @@ abstract class _$$PendngCommandsStateErrorCopyWith<$Res> {
 
 /// @nodoc
 class __$$PendngCommandsStateErrorCopyWithImpl<$Res>
-    extends _$PendngCommandsStateCopyWithImpl<$Res, _$PendngCommandsStateError>
+    extends _$GetDeviceDetailsStateCopyWithImpl<$Res,
+        _$PendngCommandsStateError>
     implements _$$PendngCommandsStateErrorCopyWith<$Res> {
   __$$PendngCommandsStateErrorCopyWithImpl(_$PendngCommandsStateError _value,
       $Res Function(_$PendngCommandsStateError) _then)
@@ -524,7 +526,7 @@ class _$PendngCommandsStateError implements PendngCommandsStateError {
 
   @override
   String toString() {
-    return 'PendngCommandsState.error(error: $error)';
+    return 'GetDeviceDetailsState.error(error: $error)';
   }
 
   @override
@@ -551,7 +553,7 @@ class _$PendngCommandsStateError implements PendngCommandsStateError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(PendingCommandsModel? model) success,
+    required TResult Function(DeviceDetailsModel? model) success,
     required TResult Function(KFailure error) error,
   }) {
     return error(this.error);
@@ -562,7 +564,7 @@ class _$PendngCommandsStateError implements PendngCommandsStateError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(PendingCommandsModel? model)? success,
+    TResult? Function(DeviceDetailsModel? model)? success,
     TResult? Function(KFailure error)? error,
   }) {
     return error?.call(this.error);
@@ -573,7 +575,7 @@ class _$PendngCommandsStateError implements PendngCommandsStateError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(PendingCommandsModel? model)? success,
+    TResult Function(DeviceDetailsModel? model)? success,
     TResult Function(KFailure error)? error,
     required TResult orElse(),
   }) {
@@ -621,7 +623,7 @@ class _$PendngCommandsStateError implements PendngCommandsStateError {
   }
 }
 
-abstract class PendngCommandsStateError implements PendngCommandsState {
+abstract class PendngCommandsStateError implements GetDeviceDetailsState {
   const factory PendngCommandsStateError({required final KFailure error}) =
       _$PendngCommandsStateError;
 

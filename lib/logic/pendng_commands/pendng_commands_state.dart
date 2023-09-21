@@ -4,10 +4,10 @@ import '../../shared/error/failures.dart';
 part 'pendng_commands_state.freezed.dart';
 
 @freezed
-abstract class PendngCommandsState with _$PendngCommandsState {
-  const factory PendngCommandsState.initial() = PendngCommandsStateInitial;
-  const factory PendngCommandsState.loading() = PendngCommandsStateLoading;
-  const factory PendngCommandsState.success({required PendingCommandsModel? model}) = PendngCommandsStateSuccess;
-  const factory PendngCommandsState.error({required KFailure error}) = PendngCommandsStateError;
+abstract class GetDeviceDetailsState with _$GetDeviceDetailsState {
+  const factory GetDeviceDetailsState.initial() = PendngCommandsStateInitial;
+  const factory GetDeviceDetailsState.loading() = PendngCommandsStateLoading;
+  const factory GetDeviceDetailsState.success({required DeviceDetailsModel? model}) = PendngCommandsStateSuccess;
+  const factory GetDeviceDetailsState.error({required KFailure error}) = PendngCommandsStateError;
 }
 // flutter pub run build_runner watch --delete-conflicting-outputs

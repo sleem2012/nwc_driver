@@ -1,18 +1,18 @@
-class MotorModel {
+class DevicesList {
   String image, title, type;
     String?  modelNo;
 
-  MotorModel({required this.image, required this.title, required this.type, required this.modelNo});
+  DevicesList({required this.image, required this.title, required this.type, required this.modelNo});
 
-  static List<MotorModel> list = [
-    MotorModel(
+  static List<DevicesList> list = [
+    DevicesList(
       image:
-          "https://bovetech.com/upload/big/1_prod__img_B97VPW_1678239320.png",
+          "http://173.214.166.194:99/Files/meter_00.jpg",
       title: "B97 VPW Valve",
       type: "type1", modelNo: '52324692',
     ),
-    MotorModel(
-      image: "https://bovetech.com/upload/big/1_prod__img_B97VPW_1678239320.png",
+    DevicesList(
+      image: "http://173.214.166.194:99/Files/meter_FE.png",
       title: "Residential Ultrasonic Water Meter",
       type: "type1", modelNo: '52324693',
     ),

@@ -32,7 +32,7 @@ class LoginBloc extends Cubit<LoginState> {
 
       }
       else{
-            emit(LoginState.error(failure: "Invalid credentials'"));
+            emit(const LoginState.error(failure: "Invalid credentials"));
 
       }
       // final result = await authRepoImpl.login(userName: userNameController.text, password: passController.text);
