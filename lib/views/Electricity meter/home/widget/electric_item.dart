@@ -10,12 +10,13 @@ import '../../../../shared/theme/helper.dart';
 import '../../../../shared/theme/text_theme.dart';
 import '../../../../shared/widgets/custom_button.dart';
 import '../../../../shared/widgets/image_widget.dart';
+import '../../../../shared/widgets/nav.dart';
+import '../../commands/commands_list_screen.dart';
 
 class ElictricItem extends StatelessWidget {
-  const ElictricItem({super.key, required this.model, required this.image});
+  const ElictricItem({super.key, required this.model,});
 
   final DeviceListValue model;
-  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +29,13 @@ class ElictricItem extends StatelessWidget {
             height: Get.height * .2,
             width: double.infinity,
             fit: BoxFit.scaleDown,
-            imageUrl: image,
+            imageUrl: model.image??'',
           ),
           10.h,
           Text(
             model.deviceNumber ?? '',
             style: KTextStyle.of(context).title.copyWith(fontSize: 26),
-          )
-          ,
+          ),
           10.h,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -53,7 +53,6 @@ class ElictricItem extends StatelessWidget {
               )
             ],
           ),
-
         ],
       ),
     );

@@ -27,9 +27,10 @@ class DeviceListValue {
   String? deviceStatus;
   String? lastConnectionDate;
   String? lastReadingDate;
-  num? lastReadingValue;
+  String? lastReadingValue;
   String? categoryName;
   String? modelName;
+  String? image;
   String? valveStatus;
   int? device_model_id;
 
@@ -42,6 +43,7 @@ class DeviceListValue {
         this.lastReadingValue,
         this.categoryName,
         this.modelName,
+        this.image,
         this.device_model_id,
         this.valveStatus});
 
@@ -56,6 +58,7 @@ class DeviceListValue {
     modelName = json['model_name'];
     device_model_id = json['device_model_id'];
     valveStatus = json['valve_status'];
+    image = json['img_Url'];
   }
 
   Map<String, dynamic> toJson() {
@@ -69,6 +72,7 @@ class DeviceListValue {
     data['category_name'] = categoryName;
     data['model_name'] = modelName;
     data['valve_status'] = valveStatus;
+    data['img_Url'] = image;
     return data;
   }
 }

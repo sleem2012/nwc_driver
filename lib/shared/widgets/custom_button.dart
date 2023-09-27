@@ -7,7 +7,7 @@ import '../../shared/theme/text_theme.dart';
 class KButton extends StatelessWidget {
   const KButton({super.key, required this.title, required this.onPressed, this.width, this.hieght, this.isLoading = false, this.kFillColor,  this.isFlat = false, this.iconPath});
 
-  final String title;
+  final String? title;
   final bool? isLoading;
   final Color? kFillColor;
   final Function() onPressed;

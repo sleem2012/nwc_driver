@@ -1,8 +1,6 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../data/model/user_model.dart';
-import '../../shared/error/failures.dart';
 part 'login_state.freezed.dart';
 
 @freezed

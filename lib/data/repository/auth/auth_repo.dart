@@ -6,7 +6,6 @@ import '../../../shared/api_client/dio_client_helper.dart';
 import '../../../shared/api_client/endpoints.dart';
 import '../../../shared/cache/locale_storage.dart';
 import '../../../shared/error/failures.dart';
-import '../../model/user_model.dart';
 
 abstract class _AuthRepo {
   Future<Either<KFailure, Unit>> login(

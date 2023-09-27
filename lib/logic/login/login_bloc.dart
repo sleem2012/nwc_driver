@@ -5,8 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/model/user_model.dart';
 import '../../data/repository/auth/auth_repo.dart';
 import '../../shared/cache/locale_storage.dart';
-import '../../shared/error/failures.dart';
-import '../../shared/localization/trans.dart';
+
 import 'login_state.dart';
 
 class LoginBloc extends Cubit<LoginState> {

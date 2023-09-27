@@ -3,37 +3,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../../data/model/devices_list_model.dart';
-import '../../../data/model/motor_model.dart';
 import '../../../di.dart';
 import '../../../logic/GetButtonsList/GetButtonsList_bloc.dart';
 import '../../../logic/GetButtonsList/GetButtonsList_state.dart';
 import '../../../logic/pendng_commands/pendng_commands_bloc.dart';
-import '../../../logic/pendng_commands/pendng_commands_bloc.dart';
 import '../../../logic/pendng_commands/pendng_commands_state.dart';
-import '../../../logic/send_commands/send_commands_bloc.dart';
 import '../../../logic/send_commands/send_commands_bloc.dart';
 import '../../../logic/send_commands/send_commands_state.dart';
 import '../../../shared/appbar.dart';
 import '../../../shared/extensions.dart';
 import '../../../shared/localization/trans.dart';
-import '../../../shared/theme/colors.dart';
 import '../../../shared/theme/helper.dart';
-import '../../../shared/theme/text_theme.dart';
 import '../../../shared/widgets/custom_button.dart';
 import '../../../shared/widgets/image_widget.dart';
 import '../../../shared/widgets/loading/loading_overlay.dart';
 import '../../../shared/widgets/shimmer_box.dart';
 import '../../request_details/widget/key_value_text.dart';
+import '../commands/commands_list_screen.dart';
 
 class ElectricMeterDetailsScreen extends StatelessWidget {
   const ElectricMeterDetailsScreen({
     super.key,
     required this.model,
-    required this.image,
   });
 
   final DeviceListValue model;
-  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -74,18 +68,32 @@ class ElectricMeterDetailsScreen extends StatelessWidget {
                     final penddingCommands = GetDeviceDetailBloc.of(context);
 
                     return Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
+                        IconButton(
+                            onPressed: () {
+                              KHelper.showCustomBottomSheet(
+                                  isScrollControlled: false,
+                                  CommandsListScreen(
+                                    deviceId: model.id ?? -1,
+                                  ));
+                            },
+                            icon: const Icon(Icons.manage_history_outlined)),
+
                         SizedBox(
                           height: Get.height * .25,
                           child: KImageWidget(
                               height: Get.height * .2,
                               width: double.infinity,
                               fit: BoxFit.fitHeight,
-                              imageUrl: image),
+                              imageUrl: model.image??''),
                         ),
                         5.h,
                         KeyValueText(
-                            keyText: "Number", value: model.deviceNumber ?? '',valueStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 18)),
+                            keyText: "Number",
+                            value: model.deviceNumber ?? '',
+                            valueStyle: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18)),
                         5.h,
                         KeyValueText(
                             keyText: "Model Name",
@@ -93,19 +101,30 @@ class ElectricMeterDetailsScreen extends StatelessWidget {
                         5.h,
                         KeyValueText(
                             keyText: "Valve status ",
-                            value: penddingCommands.pendingCommandData?.value?.valveStatus?.toString() ?? ''),
+                            value: penddingCommands
+                                    .pendingCommandData?.value?.valveStatus
+                                    ?.toString() ??
+                                ''),
                         5.h,
                         KeyValueText(
                             keyText: "Last Reading Value",
-                            value: penddingCommands.pendingCommandData?.value?.lastReadingValue?.toString() ?? ''),   5.h,
+                            value: penddingCommands
+                                    .pendingCommandData?.value?.lastReadingValue
+                                    ?.toString() ??
+                                ''),
+                        5.h,
                         KeyValueText(
                             keyText: "Last Reading Date",
-                            value: penddingCommands.pendingCommandData?.value?.lastReadingDate ?? ''),
+                            value: penddingCommands.pendingCommandData?.value
+                                    ?.lastReadingDate ??
+                                ''),
                         5.h,
 
                         KeyValueText(
                             keyText: "Last Connection",
-                            value: (penddingCommands.pendingCommandData?.value?.lastConnectionDate??"")),
+                            value: (penddingCommands.pendingCommandData?.value
+                                    ?.lastConnectionDate ??
+                                "")),
 
                         5.h,
                         KeyValueText(
@@ -125,7 +144,8 @@ class ElectricMeterDetailsScreen extends StatelessWidget {
                             height: Get.height * .2,
                             width: Get.width * .8,
                           ),
-                          child: (penddingCommands.pendingCommandData?.value?.lastCommand !=
+                          child: (penddingCommands
+                                      .pendingCommandData?.value?.lastCommand !=
                                   null)
                               ? Container(
                                   decoration: KHelper.of(context)

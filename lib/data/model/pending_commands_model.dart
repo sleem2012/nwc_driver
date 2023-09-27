@@ -22,7 +22,7 @@ class Value {
   String? deviceStatus;
   String? lastConnectionDate;
   String? lastReadingDate;
-  num? lastReadingValue;
+  String? lastReadingValue;
   num? deviceCategoryId;
   num? deviceModelId;
   int? valveStatusId;

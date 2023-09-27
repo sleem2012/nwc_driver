@@ -4,9 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../error/error_422_model.dart';
 import '../error/failures.dart';
-import '../localization/trans.dart';
 import '../theme/helper.dart';
 import 'connection_ckecker.dart';
 

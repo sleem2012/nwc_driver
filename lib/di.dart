@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -10,8 +9,6 @@ import 'data/repository/auth/auth_repo.dart';
 import 'data/repository/electric/pending_commands/pending_commands_repo.dart';
 import 'data/repository/electric/send_commands/send_commands_repo.dart';
 import 'data/repository/order/order_repo.dart';
-// import 'firebase_options.dart';
-import 'logic/get_devices/get_devices_bloc.dart';
 import 'logic/get_order_by_id/get_order_by_id_bloc.dart';
 import 'logic/get_orders/get_orders_bloc.dart';
 import 'logic/get_reject_reasons/get_reject_reasons_bloc.dart';
